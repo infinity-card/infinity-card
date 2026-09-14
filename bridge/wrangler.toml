@@ -1,0 +1,13 @@
+name = "infinity-card-github-bridge"
+main = "index.js"
+compatibility_date = "2026-09-14"
+
+[vars]
+GITHUB_OWNER = "infinity-card"
+GITHUB_REPO = "infinity-card"
+GITHUB_BRANCH = "main"
+GITHUB_ALLOWED_USER = "infinity-card"
+# The Pages origin only; do not add a path here.
+PUBLIC_APP_ORIGIN = "https://infinity-card.github.io"
+# Replace this with the deployed Worker URL before creating the OAuth App.
+BRIDGE_PUBLIC_URL = "https://infinity-card-github-bridge.YOUR_SUBDOMAIN.workers.dev"
