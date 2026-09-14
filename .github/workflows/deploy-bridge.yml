@@ -2,11 +2,6 @@ name: Deploy Infinity Card GitHub bridge
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - "bridge/**"
-      - ".github/workflows/deploy-bridge.yml"
 
 jobs:
   deploy:
