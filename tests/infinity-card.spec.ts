@@ -66,6 +66,32 @@ test("Builder exposes a 200-card inventory in batches of 10", async ({ page }) =
   await expect(page.locator(".builder-select-wrap select")).toHaveValue("ic-011");
 });
 
+test("Builder keeps a native scroll surface on small screens", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/?builder=1");
+
+  const scroller = page.locator(".builder-page");
+  await expect(scroller).toHaveCSS("overflow-y", "auto");
+
+  const metrics = await scroller.evaluate((element) => ({
+    clientHeight: element.clientHeight,
+    scrollHeight: element.scrollHeight,
+    scrollTop: element.scrollTop,
+  }));
+  expect(metrics.scrollHeight).toBeGreaterThan(metrics.clientHeight);
+  expect(metrics.scrollTop).toBe(0);
+
+  await scroller.evaluate((element) => {
+    element.scrollTop = element.scrollHeight;
+  });
+  await expect.poll(() => scroller.evaluate((element) => element.scrollTop)).toBeGreaterThan(0);
+
+  await scroller.evaluate((element) => {
+    element.scrollTop = 0;
+  });
+  await expect.poll(() => scroller.evaluate((element) => element.scrollTop)).toBe(0);
+});
+
 test("an unused card slot shows the safe activation placeholder", async ({ page }) => {
   await page.goto("/?client=ic-123");
   await expect(page.getByRole("heading", { name: "Carte IC-123" })).toBeVisible();
