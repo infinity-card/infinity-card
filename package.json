@@ -9,6 +9,7 @@
     "update:runtime-lock": "node scripts/update-mobile-runtime-lock.mjs",
     "test:runtime": "playwright test",
     "test:sites": "node --test --test-isolation=none tests/sites-worker.test.mjs",
+    "test:bridge": "node scripts/test-github-bridge.mjs",
     "predev": "npm run check:runtime",
     "dev": "vite --configLoader native",
     "prebuild": "npm run check:runtime && npm run validate:clients",
