@@ -66,6 +66,20 @@ test("Builder exposes a 200-card inventory in batches of 10", async ({ page }) =
   await expect(page.locator(".builder-select-wrap select")).toHaveValue("ic-011");
 });
 
+test("Builder exposes a public copyable link and fills missing channel URLs", async ({ page }) => {
+  await page.goto("/?builder=1");
+
+  const publicLink = page.locator('input[aria-label="Lien public IC-001"]');
+  await expect(publicLink).toHaveValue("https://infinity-card.github.io/infinity-card/?client=ic-001");
+  await expect(page.getByRole("link", { name: "Ouvrir" })).toHaveAttribute(
+    "href",
+    "https://infinity-card.github.io/infinity-card/?client=ic-001",
+  );
+
+  await page.getByRole("button", { name: "Copier le lien" }).click();
+  await expect(page.getByRole("button", { name: "Copié" })).toBeVisible();
+});
+
 test("Builder keeps a native scroll surface on small screens", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/?builder=1");
