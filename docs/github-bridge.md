@@ -6,8 +6,10 @@ the phone or into the public bundle.
 
 ## Contract
 
-Set `VITE_GITHUB_BRIDGE_URL` to the bridge origin when it is ready. The Builder
-sends `POST /clients` with a JSON payload shaped like:
+Set `VITE_GITHUB_BRIDGE_URL` to the deployed Worker origin when it is ready. The
+reference implementation lives in [`bridge/`](../bridge/) and uses GitHub OAuth
+with an encrypted HttpOnly session cookie. The Builder sends `POST /clients`
+with a JSON payload shaped like:
 
 ```json
 {
@@ -20,9 +22,11 @@ sends `POST /clients` with a JSON payload shaped like:
 }
 ```
 
-The bridge should authenticate the owner with GitHub OAuth or a GitHub App,
-validate the slug and file paths, then commit the files to the configured
-`infinity-card` repository. It may return `{ "ok": true, "url": "..." }`.
+The bridge authenticates the owner with GitHub OAuth, validates the slug and
+file paths, then commits the files to the configured `infinity-card`
+repository. It returns `{ "ok": true, "url": "..." }` after the commit is
+visible on GitHub. A missing session returns `401` with an `authUrl`; the
+Builder never receives the GitHub access token.
 
 The Builder's **Backup** button sends `POST /backup` with the complete local
 inventory snapshot (all 200 slot statuses plus every saved draft). The bridge
@@ -58,9 +62,9 @@ placeholder page.
 
 ## Recommended GitHub flow
 
-1. Builder authenticates the owner through the bridge.
-2. The bridge validates the client payload and rejects paths outside the two
-   allowed client folders.
+1. Builder sends the owner to the bridge's GitHub OAuth login once.
+2. The bridge validates the client payload and rejects paths outside the allowed
+   client folder.
 3. The bridge writes one commit containing the data module and any new images.
 4. GitHub Actions runs `npm run build:pages` and deploys the Pages artifact.
 5. The stable NFC URL remains `?client=<slug>` while the client information can
@@ -69,4 +73,5 @@ placeholder page.
 Until the bridge is configured, `Sauvegarder draft` stores a working draft on
 the current device, **Backup** downloads a complete local JSON copy, and
 `Exporter le payload` provides a local integration artifact. No GitHub write is
-attempted until the bridge is configured.
+attempted until the bridge is configured. Deployment steps and the required
+Cloudflare/GitHub secrets are documented in [`bridge/README.md`](../bridge/README.md).
