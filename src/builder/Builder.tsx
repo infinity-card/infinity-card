@@ -22,7 +22,6 @@ import {
 } from "../cards/inventory";
 import { downloadVCard, imageElementToJpegData } from "../clients/vcard";
 import type { CardTheme, ChannelKind } from "../clients/types";
-import { MobileScroll } from "../mobile";
 import {
   CHANNEL_DEFINITIONS,
   cloneDraft,
@@ -970,7 +969,7 @@ export default function Builder() {
   };
 
   return (
-    <MobileScroll className="builder-page">
+    <div className="builder-page">
       <div className="builder-shell">
         <header className="builder-topbar">
           <div className="builder-brand"><span className="builder-brand-mark">∞</span><span>Infinity Card</span></div>
@@ -1088,6 +1087,6 @@ export default function Builder() {
 
         <footer className="builder-footer"><span>∞ Infinity Card Studio</span><span>Une page. Un lien. Une rencontre.</span></footer>
       </div>
-    </MobileScroll>
+    </div>
   );
 }

@@ -1,4 +1,11 @@
 .builder-page {
+  position: absolute;
+  inset: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: auto;
+  touch-action: pan-y;
   --builder-ink: #142522;
   --builder-muted: #77736d;
   --builder-line: rgba(20, 37, 34, 0.14);
@@ -10,12 +17,7 @@
   font-family: "Roboto", Arial, sans-serif;
 }
 
-.builder-page .mobile-scroll {
-  overflow-x: hidden;
-  background: #ebe7df;
-}
-
-.builder-page .mobile-scroll-content {
+.builder-page > .builder-shell {
   min-height: 100%;
 }
 
