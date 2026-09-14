@@ -37,6 +37,7 @@ import {
   buildGithubPublishPayload,
   backupInventoryToGithub,
   githubBridgeConfigured,
+  githubBridgeLoginUrl,
   publishClientToGithub,
 } from "./github-client";
 import type { GithubBackupSnapshot } from "./github-client";
@@ -843,6 +844,10 @@ export default function Builder() {
     setBusy(true);
     try {
       const response = await publishClientToGithub(publishDraft);
+      if (!response.ok) {
+        setNotice({ tone: "info", text: response.message ?? "Le publish GitHub n’a pas abouti." });
+        return;
+      }
       if (slot) {
         setSlotStates((current) => ({
           ...current,
@@ -865,6 +870,7 @@ export default function Builder() {
 
   const activeChannelKinds = CHANNEL_DEFINITIONS.map((item) => item.kind).filter((kind) => draft.channels[kind]);
   const displaySlug = normalizeSlug(draft.slug) || "client-slug";
+  const bridgeLoginUrl = githubBridgeLoginUrl();
 
   const handleDownloadQrBatch = async (batchSlots: typeof CARD_SLOTS, batchIndex: number) => {
     const firstNumber = batchSlots[0] ? CARD_SLOTS.indexOf(batchSlots[0]) + 1 : batchIndex * CARD_BATCH_SIZE + 1;
@@ -1076,6 +1082,7 @@ export default function Builder() {
               <legend><span>03</span> Prêt à publier</legend>
               <div className="builder-publish-copy"><div className="builder-publish-icon"><RocketIcon /></div><div><strong>Une fois publié, le lien reste stable.</strong><p>Le client garde le même lien NFC même si tu modifies ses informations plus tard.</p></div></div>
               <div className="builder-actions"><button type="button" className="builder-button builder-button--quiet" onClick={saveDraft}>Sauvegarder draft</button><button type="button" className="builder-button builder-button--primary" onClick={publish} disabled={busy}>{busy ? "Publication…" : "Publier sur GitHub"}<RocketIcon /></button></div>
+              {githubBridgeConfigured() && bridgeLoginUrl ? <a className="builder-connect-github" href={bridgeLoginUrl}>Connecter GitHub avant le premier publish</a> : null}
               <button type="button" className="builder-export" onClick={exportPayload}>Exporter le payload GitHub pour test local</button>
               {notice ? <div className={`builder-notice builder-notice--${notice.tone}`} role="status">{notice.tone === "success" ? <CheckCircledIcon /> : <ImageIcon />}{notice.text}</div> : null}
             </fieldset>

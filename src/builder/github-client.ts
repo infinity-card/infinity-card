@@ -17,6 +17,8 @@ export type GithubBridgeResponse = {
   ok: boolean;
   url?: string;
   message?: string;
+  code?: string;
+  authUrl?: string;
 };
 
 export type GithubBackupSnapshot = {
@@ -80,6 +82,14 @@ export function githubBridgeConfigured() {
   return Boolean(bridgeUrl());
 }
 
+export function githubBridgeLoginUrl() {
+  const endpoint = bridgeUrl();
+  if (!endpoint || typeof window === "undefined") return null;
+  const url = new URL(`${endpoint}/auth/github/start`);
+  url.searchParams.set("return", window.location.href);
+  return url.href;
+}
+
 export async function publishClientToGithub(draft: BuilderDraft): Promise<GithubBridgeResponse> {
   const endpoint = bridgeUrl();
   if (!endpoint) {
@@ -97,10 +107,8 @@ export async function publishClientToGithub(draft: BuilderDraft): Promise<Github
   });
 
   const body = (await response.json().catch(() => ({}))) as GithubBridgeResponse;
-  if (!response.ok) {
-    throw new Error(body.message || "Impossible de publier ce client pour le moment.");
-  }
-  return body;
+  if (!response.ok) return { ...body, ok: false, message: body.message || "Impossible de publier ce client pour le moment." };
+  return { ...body, ok: body.ok !== false };
 }
 
 export function buildGithubBackupPayload(snapshot: GithubBackupSnapshot) {
@@ -133,8 +141,6 @@ export async function backupInventoryToGithub(snapshot: GithubBackupSnapshot): P
   });
 
   const body = (await response.json().catch(() => ({}))) as GithubBridgeResponse;
-  if (!response.ok) {
-    throw new Error(body.message || "Impossible de sauvegarder le backup dans GitHub.");
-  }
-  return body;
+  if (!response.ok) return { ...body, ok: false, message: body.message || "Impossible de sauvegarder le backup dans GitHub." };
+  return { ...body, ok: body.ok !== false };
 }
