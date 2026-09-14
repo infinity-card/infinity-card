@@ -331,7 +331,7 @@ async function finishGithubLogin(request, env) {
   const returnUrl = safeReturnUrl(returnCookie ? decodeURIComponent(returnCookie) : "", env);
   return redirect(returnUrl, {
     "set-cookie": [
-      cookie(SESSION_COOKIE, session, { maxAge: SESSION_MAX_AGE, httpOnly: true, path: "/" }),
+      cookie(SESSION_COOKIE, session, { maxAge: SESSION_MAX_AGE, httpOnly: true, path: "/", sameSite: "None" }),
       cookie(STATE_COOKIE, "", { maxAge: 0, path: "/auth/github" }),
       cookie(RETURN_COOKIE, "", { maxAge: 0, path: "/auth/github" }),
     ],
