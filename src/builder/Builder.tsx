@@ -48,6 +48,7 @@ const INVENTORY_STORAGE_KEY = "infinity-card:card-inventory:v1";
 const DEFAULT_CARD_SLOT = "ic-001";
 const CARD_BATCH_SIZE = 10;
 const NEW_CLIENT_KEY = "__new__";
+const DEFAULT_PUBLIC_SITE_URL = "https://infinity-card.github.io/infinity-card/";
 
 type StoredSlotState = {
   status: Exclude<CardSlotStatus, "available">;
@@ -92,12 +93,13 @@ function getDraftForSelection(draft: BuilderDraft, selectedSlug: string) {
 
 function getPublicCardUrl(slug: string) {
   const configuredBase = (import.meta.env.VITE_PUBLIC_SITE_URL as string | undefined)?.trim();
-  const base = configuredBase
-    ? new URL(configuredBase.endsWith("/") ? configuredBase : `${configuredBase}/`, window.location.href)
-    : new URL(import.meta.env.BASE_URL, window.location.href);
+  // Always point QR codes at the public Pages site. A localhost URL is useful
+  // for a desktop preview, but it cannot be opened from a customer's phone.
+  const publicBase = configuredBase || DEFAULT_PUBLIC_SITE_URL;
+  const base = new URL(publicBase.endsWith("/") ? publicBase : `${publicBase}/`, window.location.href);
   base.search = "";
   base.hash = "";
-  base.searchParams.set("client", slug);
+  base.searchParams.set("client", normalizeSlug(slug) || slug.trim().toLowerCase());
   return base.href;
 }
 
@@ -120,6 +122,70 @@ function downloadDataUrl(dataUrl: string, filename: string) {
   document.body.appendChild(link);
   link.click();
   link.remove();
+}
+
+async function copyText(value: string) {
+  if (navigator.clipboard?.writeText) {
+    try {
+      await navigator.clipboard.writeText(value);
+      return;
+    } catch {
+      // Continue with the legacy selection fallback below. This is needed on
+      // local previews and on browsers that block clipboard permissions.
+    }
+  }
+
+  const textarea = document.createElement("textarea");
+  textarea.value = value;
+  textarea.setAttribute("readonly", "true");
+  textarea.style.position = "fixed";
+  textarea.style.opacity = "0";
+  textarea.style.pointerEvents = "none";
+  document.body.appendChild(textarea);
+  textarea.focus();
+  textarea.select();
+  const copied = document.execCommand("copy");
+  textarea.remove();
+  if (!copied) throw new Error("Clipboard indisponible");
+}
+
+function PublicLinkTools({ url, cardId }: { url: string; cardId: string }) {
+  const [copied, setCopied] = useState(false);
+  const [copyError, setCopyError] = useState(false);
+
+  const handleCopy = async () => {
+    setCopyError(false);
+    try {
+      await copyText(url);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1800);
+    } catch {
+      setCopyError(true);
+    }
+  };
+
+  return (
+    <div className="builder-public-link" aria-label={`Lien public ${cardId}`}>
+      <div className="builder-public-link-field">
+        <Link2Icon aria-hidden="true" />
+        <input
+          value={url}
+          readOnly
+          aria-label={`Lien public ${cardId}`}
+          onFocus={(event) => event.currentTarget.select()}
+        />
+      </div>
+      <div className="builder-public-link-actions">
+        <button type="button" className="builder-button builder-button--quiet" onClick={handleCopy}>
+          {copied ? "Copié" : "Copier le lien"}
+        </button>
+        <a className="builder-button builder-button--quiet" href={url} target="_blank" rel="noreferrer">
+          Ouvrir
+        </a>
+      </div>
+      {copyError ? <small className="builder-public-link-error">Sélectionne le lien dans la case pour le copier.</small> : null}
+    </div>
+  );
 }
 
 async function buildQrSvg(slug: string) {
@@ -284,13 +350,13 @@ function Toggle({ checked, onChange, label }: { checked: boolean; onChange: (val
   );
 }
 
-function CardQrPanel({ slug, status }: { slug: string; status: CardSlotStatus }) {
+function CardQrPanel({ slug, status, hasDraft }: { slug: string; status: CardSlotStatus; hasDraft: boolean }) {
   const [qrDataUrl, setQrDataUrl] = useState<string>();
   const [qrError, setQrError] = useState<string>();
-  const [copied, setCopied] = useState(false);
   const url = getPublicCardUrl(slug);
   const slot = getCardSlot(slug);
   const publicUrlConfigured = Boolean((import.meta.env.VITE_PUBLIC_SITE_URL as string | undefined)?.trim());
+  const hasPublishedClient = status === "published" || Boolean(clients[slug]);
 
   useEffect(() => {
     let active = true;
@@ -328,16 +394,6 @@ function CardQrPanel({ slug, status }: { slug: string; status: CardSlotStatus })
     }
   };
 
-  const copyLink = async () => {
-    try {
-      await navigator.clipboard.writeText(url);
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 1800);
-    } catch {
-      setQrError("Copie automatique indisponible. Sélectionne le lien manuellement.");
-    }
-  };
-
   return (
     <section className="builder-qr-card" aria-label={`QR Code ${slot.id}`}>
       <div className="builder-qr-copy">
@@ -347,19 +403,19 @@ function CardQrPanel({ slug, status }: { slug: string; status: CardSlotStatus })
           <small><span className={`builder-status-dot builder-status-dot--${status}`} />{SLOT_STATUS_LABELS[status]}</small>
         </div>
         <span className={`builder-qr-badge ${publicUrlConfigured ? "" : "builder-qr-badge--local"}`}>
-          {publicUrlConfigured ? "Prêt à imprimer" : "Aperçu local"}
+          {!publicUrlConfigured ? "Lien public" : hasPublishedClient ? "Lien actif" : "QR stable"}
         </span>
       </div>
       <div className="builder-qr-preview">
         {qrDataUrl ? <img src={qrDataUrl} alt={`QR Code ${slot.id}`} /> : <span className="builder-qr-loading">Génération…</span>}
       </div>
-      <div className="builder-qr-link"><Link2Icon /><span>{url}</span></div>
-      {!publicUrlConfigured ? <p className="builder-qr-warning">Configure l’URL GitHub Pages avant d’imprimer ce QR.</p> : null}
+      <PublicLinkTools url={url} cardId={slot.id} />
+      {!publicUrlConfigured ? <p className="builder-qr-warning">Le QR utilise le lien public GitHub Pages. Ajoute VITE_PUBLIC_SITE_URL dans le build pour confirmer l’URL de production.</p> : null}
+      {!hasPublishedClient && (status === "sold" || hasDraft) ? <p className="builder-qr-warning">هاد QR غادي يفتح صفحة الانتظار حتى تدير Publier sur GitHub. “Vendue” كتسجل البيع فقط وما كتـنشرش المعطيات.</p> : null}
       {qrError ? <p className="builder-qr-error" role="status">{qrError}</p> : null}
       <div className="builder-qr-actions">
         <button type="button" className="builder-button builder-button--quiet" onClick={downloadPng} disabled={!qrDataUrl}>PNG</button>
         <button type="button" className="builder-button builder-button--quiet" onClick={downloadSvg}>SVG</button>
-        <button type="button" className="builder-button builder-button--quiet" onClick={copyLink}>{copied ? "Copié" : "Copier le lien"}</button>
       </div>
     </section>
   );
@@ -428,6 +484,7 @@ function InventorySlotCard({
       <div className="builder-inventory-slot-qr">
         {qrDataUrl ? <img src={qrDataUrl} alt={`QR Code ${slot.id}`} /> : <span>{qrError ? "QR indisponible" : "Génération…"}</span>}
       </div>
+      <PublicLinkTools url={url} cardId={slot.id} />
       <div className="builder-inventory-slot-actions">
         <button type="button" className="builder-button builder-button--quiet" onClick={() => onEdit(slot.slug)}>Modifier</button>
         <button type="button" className="builder-button builder-button--quiet" onClick={downloadPng} disabled={!qrDataUrl}>PNG</button>
@@ -697,6 +754,7 @@ export default function Builder() {
   const [busy, setBusy] = useState(false);
   const [qrPackBusy, setQrPackBusy] = useState(false);
   const [backupBusy, setBackupBusy] = useState(false);
+  const [previewLinkCopied, setPreviewLinkCopied] = useState(false);
 
   const allClients = useMemo(() => ({ ...clients, ...storedDrafts }), [storedDrafts]);
   const exampleClientEntries = Object.values(allClients).filter((client) => !isCardSlotSlug(client.slug));
@@ -871,6 +929,16 @@ export default function Builder() {
   const activeChannelKinds = CHANNEL_DEFINITIONS.map((item) => item.kind).filter((kind) => draft.channels[kind]);
   const displaySlug = normalizeSlug(draft.slug) || "client-slug";
   const bridgeLoginUrl = githubBridgeLoginUrl();
+
+  const copyPreviewLink = async () => {
+    try {
+      await copyText(getPublicCardUrl(displaySlug));
+      setPreviewLinkCopied(true);
+      window.setTimeout(() => setPreviewLinkCopied(false), 1800);
+    } catch {
+      setNotice({ tone: "error", text: "Sélectionne le lien dans la case QR pour le copier." });
+    }
+  };
 
   const handleDownloadQrBatch = async (batchSlots: typeof CARD_SLOTS, batchIndex: number) => {
     const firstNumber = batchSlots[0] ? CARD_SLOTS.indexOf(batchSlots[0]) + 1 : batchIndex * CARD_BATCH_SIZE + 1;
@@ -1061,8 +1129,15 @@ export default function Builder() {
                 <div className="builder-field builder-field--full"><DraftField label="Description courte" value={draft.description} placeholder="Ex. Caftans · Accessoires · Mode féminine" onChange={(value) => updateDraft({ description: value })} multiline /></div>
                 <DraftField label="Identifiant du lien" value={draft.slug} placeholder="maison-lina" readOnly={Boolean(activeSlot)} onChange={(value) => updateDraft({ slug: value })} />
               </div>
-              <div className="builder-link-preview"><Link2Icon /><span>Ton lien sera</span><strong>{getPublicCardUrl(displaySlug)}</strong></div>
-              {activeSlot && activeSlotStatus ? <CardQrPanel slug={activeSlot.slug} status={activeSlotStatus} /> : null}
+              <div className="builder-link-preview">
+                <Link2Icon aria-hidden="true" />
+                <span>Ton lien sera</span>
+                <strong>{getPublicCardUrl(displaySlug)}</strong>
+                <button type="button" className="builder-link-copy" onClick={copyPreviewLink}>
+                  {previewLinkCopied ? "Copié" : "Copier"}
+                </button>
+              </div>
+              {activeSlot && activeSlotStatus ? <CardQrPanel slug={activeSlot.slug} status={activeSlotStatus} hasDraft={Boolean(draft.name.trim())} /> : null}
               <div className="builder-image-grid">
                 <ImageUpload label="Photo principale" image={draft.heroImage} imageData={draft.heroImageData} onImage={(heroImageData) => updateDraft({ heroImageData })} />
                 <ImageUpload label="Logo du commerce" image={draft.logoImage} imageData={draft.logoImageData} onImage={(logoImageData) => updateDraft({ logoImageData })} />

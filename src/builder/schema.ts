@@ -85,9 +85,59 @@ export function getImageSource(path: string, data?: string) {
   return `${import.meta.env.BASE_URL}${path}`;
 }
 
+function isUrl(value: string) {
+  return /^(https?:\/\/|mailto:|tel:)/i.test(value.trim());
+}
+
+function inferChannelHref(kind: ChannelKind, value: string, href: string) {
+  const cleanValue = value.trim();
+  const cleanHref = href.trim();
+  if (cleanHref) return cleanHref;
+  if (!cleanValue) return "";
+  if (isUrl(cleanValue)) return cleanValue;
+
+  switch (kind) {
+    case "whatsapp": {
+      const digits = cleanValue.replace(/\D/g, "");
+      return digits ? `https://wa.me/${digits}` : "";
+    }
+    case "phone": {
+      const phone = cleanValue.replace(/[^\d+]/g, "");
+      return phone ? `tel:${phone}` : "";
+    }
+    case "email":
+      return cleanValue.includes("@") ? `mailto:${cleanValue}` : "";
+    case "instagram":
+      return `https://instagram.com/${cleanValue.replace(/^@/, "")}`;
+    case "tiktok":
+      return `https://tiktok.com/@${cleanValue.replace(/^@/, "")}`;
+    case "facebook":
+      return `https://facebook.com/${cleanValue.replace(/^@/, "")}`;
+    case "linkedin":
+      return `https://linkedin.com/in/${cleanValue.replace(/^@/, "")}`;
+    case "address":
+      return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(cleanValue)}`;
+    case "reviews":
+      return `https://www.google.com/search?q=${encodeURIComponent(`${cleanValue} avis`)}`;
+    case "website":
+      return `https://${cleanValue.replace(/^https?:\/\//i, "")}`;
+    default:
+      return "";
+  }
+}
+
 export function toClientCard(draft: BuilderDraft): ClientCard {
   const channels = Object.fromEntries(
-    Object.entries(draft.channels).filter(([, channel]) => channel?.value || channel?.href),
+    Object.entries(draft.channels)
+      .filter(([, channel]) => channel?.value || channel?.href)
+      .map(([kind, channel]) => {
+        if (!channel) return [kind, channel];
+        return [kind, {
+          ...channel,
+          value: channel.value.trim(),
+          href: inferChannelHref(kind as ChannelKind, channel.value, channel.href),
+        }];
+      }),
   ) as BuilderDraft["channels"];
 
   return {

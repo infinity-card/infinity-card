@@ -711,7 +711,20 @@
 }
 
 .builder-link-preview svg { width: 14px; height: 14px; color: var(--builder-plum); }
-.builder-link-preview strong { overflow: hidden; color: var(--builder-plum); font-size: 10px; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+.builder-link-preview strong { min-width: 0; overflow: hidden; flex: 1; color: var(--builder-plum); font-size: 10px; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+.builder-link-copy {
+  flex: 0 0 auto;
+  padding: 5px 7px;
+  border: 1px solid rgba(129, 63, 81, 0.2);
+  border-radius: 7px;
+  background: transparent;
+  color: var(--builder-plum);
+  font: inherit;
+  font-size: 9px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.builder-link-copy:hover { background: rgba(129, 63, 81, 0.1); }
 
 .builder-qr-card {
   display: grid;
@@ -816,6 +829,69 @@
 
 .builder-qr-link svg { width: 14px; height: 14px; flex: 0 0 auto; }
 .builder-qr-link span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.builder-public-link {
+  display: grid;
+  gap: 7px;
+  min-width: 0;
+}
+
+.builder-public-link-field {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+  padding: 0 10px;
+  border: 1px solid rgba(129, 63, 81, 0.16);
+  border-radius: 8px;
+  background: rgba(129, 63, 81, 0.07);
+}
+
+.builder-public-link-field svg {
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+  color: var(--builder-plum);
+}
+
+.builder-public-link-field input {
+  width: 100%;
+  min-width: 0;
+  height: 35px;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--builder-plum);
+  font: inherit;
+  font-size: 10px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+}
+
+.builder-public-link-field input:focus {
+  box-shadow: none;
+}
+
+.builder-public-link-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+}
+
+.builder-public-link-actions .builder-button {
+  min-height: 35px;
+  padding-inline: 9px;
+  font-size: 10px;
+  text-decoration: none;
+}
+
+.builder-public-link-error {
+  color: #8d332a;
+  font-size: 10px;
+  line-height: 1.35;
+}
+
 .builder-qr-warning { margin: 0; color: #8d681d; font-size: 10px; line-height: 1.4; }
 .builder-qr-error { margin: 0; color: #8d332a; font-size: 10px; line-height: 1.4; }
 .builder-qr-actions { display: flex; gap: 7px; }
