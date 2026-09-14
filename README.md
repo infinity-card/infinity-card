@@ -17,7 +17,10 @@ shown in an **Inventaire** mode. Work through the inventory in batches of 10:
 open a lot, customize any card with **Modifier**, and download only that lot's
 PNG/SVG QR or printable HTML sheet. Each QR stores only the stable
 `?client=ic-###` URL. Set `VITE_PUBLIC_SITE_URL` before printing so generated
-QR codes use the final GitHub Pages address; leave it empty for a local preview.
+QR codes use the final GitHub Pages address. If it is missing, the builder falls
+back to the Infinity Card Pages URL instead of generating a phone-inaccessible
+`localhost` QR. Every card now exposes a selectable link with **Copier le lien**
+and **Ouvrir** actions.
 
 The **Backup** button saves a JSON snapshot of all 200 slots and saved client
 drafts. With the private GitHub bridge configured, it commits automatically to
@@ -67,7 +70,7 @@ client name, available phone/WhatsApp number, email, address, website, and the
 shop logo as the contact photo. Missing fields are omitted; the phone then asks
 the user to confirm saving the contact.
 
-The Builder is designed for phone-first intake: choose a base theme, fill the client profile, upload the hero/logo, toggle channels, preview, save a local draft, or publish through `VITE_GITHUB_BRIDGE_URL` when the secure GitHub bridge is configured. The browser never receives a GitHub token.
+The Builder is designed for phone-first intake: choose a base theme, fill the client profile, upload the hero/logo, toggle channels, preview, save a local draft, or publish through `VITE_GITHUB_BRIDGE_URL` when the secure GitHub bridge is configured. When a channel value is filled but its action URL is left empty, the Builder generates the usual WhatsApp, phone, e-mail, Instagram, TikTok, social, maps, reviews, or website link automatically. The browser never receives a GitHub token.
 
 `npm run build:pages` creates a relative-path static build in `dist/pages`, including the preview assets, ready for a GitHub Pages project subdirectory. It does not publish anything.
 
