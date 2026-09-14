@@ -24,13 +24,13 @@ for (const entry of clientDirs) {
   }
 
   const source = await readFile(modulePath, "utf8");
-  const slugMatch = source.match(/slug:\s*["']([^"']+)["']/);
+  const slugMatch = source.match(/(?:"slug"|slug)\s*:\s*["']([^"']+)["']/);
   if (!slugMatch || slugMatch[1] !== slug) {
     errors.push(`${slug}: slug must match its folder name`);
   }
 
   for (const field of ["heroImage", "logoImage"]) {
-    const match = source.match(new RegExp(`${field}:\\s*["']([^"']+)["']`));
+    const match = source.match(new RegExp(`(?:"${field}"|${field}):\\s*["']([^"']+)["']`));
     if (!match) {
       errors.push(`${slug}: missing ${field}`);
       continue;
