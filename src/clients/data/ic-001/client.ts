@@ -1,0 +1,65 @@
+import type { ClientCard } from "../../types";
+
+export const client: ClientCard = {
+  "slug": "ic-001",
+  "theme": "women",
+  "name": "Maison Lina",
+  "description": "Mode féminine · Caftans · Accessoires",
+  "city": "Rabat",
+  "heroImage": "assets/clients/maison-lina/hero.webp",
+  "logoImage": "assets/clients/maison-lina/logo.webp",
+  "logoAlt": "Logo du commerce",
+  "contactCard": {
+    "label": "Ajouter aux contacts",
+    "organization": "Maison Lina"
+  },
+  "channels": {
+    "whatsapp": {
+      "label": "WhatsApp",
+      "value": "+212 6 12 34 56 78",
+      "href": "https://wa.me/212612345678",
+      "external": true
+    },
+    "phone": {
+      "label": "Téléphone",
+      "value": "+212 6 12 34 56 78",
+      "href": "tel:+212612345678"
+    },
+    "email": {
+      "label": "E-mail",
+      "value": "bonjour@maisonlina.ma",
+      "href": "mailto:bonjour@maisonlina.ma"
+    },
+    "instagram": {
+      "label": "Instagram",
+      "value": "@maisonlina",
+      "href": "https://instagram.com/maisonlina",
+      "external": true
+    },
+    "address": {
+      "label": "Adresse",
+      "value": "18 Rue Oued Sebou, Agdal, Rabat",
+      "href": "https://maps.google.com/?q=18+Rue+Oued+Sebou+Agdal+Rabat",
+      "external": true
+    },
+    "reviews": {
+      "label": "Avis Google",
+      "value": "Voir les avis · 4,9 ★",
+      "href": "https://www.google.com/search?q=Maison+Lina+Rabat+avis",
+      "external": true
+    }
+  },
+  "quickActions": [
+    "whatsapp",
+    "phone",
+    "reviews"
+  ],
+  "detailItems": [
+    "phone",
+    "email",
+    "address",
+    "reviews"
+  ]
+};
+
+export default client;
