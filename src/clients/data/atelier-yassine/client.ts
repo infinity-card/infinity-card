@@ -1,0 +1,73 @@
+import type { ClientCard } from "../../types";
+
+/**
+ * Every channel is optional. For a WhatsApp + TikTok-only client, keep only
+ * those two `channels` and list them in the action/detail arrays you need.
+ */
+export const atelierYassine: ClientCard = {
+  slug: "atelier-yassine",
+  theme: "men",
+  name: "Atelier Yassine",
+  description: "Barber shop · Grooming · Rabat",
+  city: "Rabat",
+  heroImage: "assets/clients/atelier-yassine/hero.webp",
+  logoImage: "assets/clients/atelier-yassine/logo.webp",
+  logoAlt: "Monogramme Atelier Yassine",
+  contactCard: {
+    label: "Ajouter aux contacts",
+    organization: "Atelier Yassine",
+  },
+  channels: {
+    whatsapp: {
+      label: "WhatsApp",
+      value: "+212 6 87 65 43 21",
+      href: "https://wa.me/212687654321",
+      external: true,
+    },
+    phone: {
+      label: "Appeler",
+      value: "+212 6 87 65 43 21",
+      href: "tel:+212687654321",
+    },
+    reviews: {
+      label: "Avis",
+      value: "Voir les avis · 4,8 ★",
+      href: "https://www.google.com/search?q=Atelier+Yassine+Rabat+avis",
+      external: true,
+    },
+    email: {
+      label: "E-mail",
+      value: "contact@atelieryassine.ma",
+      href: "mailto:contact@atelieryassine.ma",
+    },
+    instagram: {
+      label: "Instagram",
+      value: "@atelieryassine",
+      href: "https://instagram.com/atelieryassine",
+      external: true,
+    },
+    facebook: {
+      label: "Facebook",
+      value: "Atelier Yassine",
+      href: "https://facebook.com/atelieryassine",
+      external: true,
+    },
+    address: {
+      label: "Adresse",
+      value: "7 Avenue Fal Ould Oumeir, Agdal, Rabat",
+      href: "https://maps.google.com/?q=7+Avenue+Fal+Ould+Oumeir+Agdal+Rabat",
+      external: true,
+    },
+    // TikTok is supported but intentionally disabled in the default sample.
+    // tiktok: {
+    //   label: "TikTok",
+    //   value: "@atelieryassine",
+    //   href: "https://tiktok.com/@atelieryassine",
+    //   external: true,
+    // },
+  },
+  quickActions: ["whatsapp", "phone", "reviews"],
+  detailItems: ["phone", "email", "instagram", "facebook", "address", "reviews"],
+};
+
+export default atelierYassine;
