@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-labelledby="title">
+  <title id="title">Infinity Card</title>
+  <circle cx="120" cy="120" r="116" fill="#813f51"/>
+  <circle cx="120" cy="120" r="99" fill="none" stroke="#f6f1e8" stroke-opacity=".7" stroke-width="2"/>
+  <text x="120" y="147" fill="#f6f1e8" font-family="Georgia, serif" font-size="108" text-anchor="middle">∞</text>
+</svg>
