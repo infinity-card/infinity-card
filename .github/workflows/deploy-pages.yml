@@ -35,11 +35,12 @@ jobs:
 
       - name: Build GitHub Pages artifact
         run: npm run build:pages
+        env:
+          VITE_PUBLIC_SITE_URL: https://infinity-card.github.io/infinity-card/
+          VITE_GITHUB_BRIDGE_URL: ${{ vars.VITE_GITHUB_BRIDGE_URL }}
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
