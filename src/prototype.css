@@ -1,0 +1,542 @@
+@import "@fontsource/roboto/latin-400.css";
+@import "@fontsource/roboto/latin-500.css";
+@import "@fontsource/roboto/latin-600.css";
+
+.card-theme {
+  --paper: #f8f2e9;
+  --ink: #18211f;
+  --muted: #756f69;
+  --line: rgba(30, 35, 33, 0.18);
+  --primary: #813f51;
+  --primary-pressed: #6e3445;
+  --brand-accent: #b96f73;
+  --whatsapp: #287a4c;
+  --soft-accent: #dcb8b6;
+  --display-font: Georgia, "Times New Roman", serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Roboto", Arial, sans-serif;
+}
+
+.card-theme--men {
+  --paper: #f5f0e8;
+  --ink: #0d2029;
+  --muted: #6f6c68;
+  --line: rgba(13, 32, 41, 0.2);
+  --primary: #a34f2e;
+  --primary-pressed: #873f25;
+  --brand-accent: #153748;
+  --soft-accent: #c9946e;
+}
+
+.app-screen.card-theme,
+.card-theme .mobile-scroll-content {
+  background-color: var(--paper);
+}
+
+.card-theme .mobile-scroll-content {
+  min-height: 100%;
+}
+
+.card-page {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 560px;
+  margin-inline: auto;
+  min-height: 100%;
+  padding-bottom: calc(var(--mobile-safe-area-height) + 10px);
+  overflow: hidden;
+  background-color: var(--paper);
+  background-image: var(--paper-texture);
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  color: var(--ink);
+}
+
+.hero {
+  position: relative;
+  height: 220px;
+  overflow: hidden;
+  border-bottom-left-radius: 78% 104px;
+  background: var(--brand-accent);
+}
+
+.hero img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: 58% 50%;
+}
+
+.card-theme--men .hero img {
+  object-position: 53% 52%;
+}
+
+.identity {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 100px minmax(0, 1fr);
+  align-items: center;
+  gap: 18px;
+  min-height: 112px;
+  margin-top: -46px;
+  padding: 0 22px;
+}
+
+.business-logo {
+  width: 100px;
+  height: 100px;
+  display: block;
+  border: 2px solid color-mix(in srgb, var(--brand-accent) 68%, var(--paper));
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--paper);
+  box-shadow: 0 8px 24px rgba(42, 28, 20, 0.13);
+}
+
+.identity-copy {
+  min-width: 0;
+  padding-top: 31px;
+}
+
+.identity-copy .city-label {
+  margin: 0 0 3px;
+  color: var(--brand-accent);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.identity-copy h1 {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--display-font);
+  font-size: clamp(33px, 9.5vw, 40px);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+  text-wrap: balance;
+}
+
+.card-theme--men .identity-copy h1 {
+  font-size: clamp(30px, 8.2vw, 36px);
+}
+
+.identity-copy p:last-child {
+  margin: 6px 0 0;
+  color: var(--ink);
+  font-size: 13.5px;
+  line-height: 1.3;
+}
+
+.contact-actions {
+  padding: 4px 22px 0;
+}
+
+.save-contact,
+.quick-action,
+.detail-row {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.save-contact {
+  width: 100%;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border: 0;
+  border-radius: 13px;
+  background: var(--primary);
+  color: #fffaf4;
+  cursor: pointer;
+  font: inherit;
+  font-size: 17px;
+  font-weight: 500;
+  box-shadow: 0 7px 18px color-mix(in srgb, var(--primary) 23%, transparent);
+  transition: background 150ms ease, transform 150ms ease, box-shadow 150ms ease;
+}
+
+.save-contact svg {
+  width: 23px;
+  height: 23px;
+}
+
+.save-contact:hover {
+  box-shadow: 0 9px 22px color-mix(in srgb, var(--primary) 32%, transparent);
+}
+
+.save-contact:active {
+  background: var(--primary-pressed);
+  transform: translateY(1px);
+}
+
+.save-contact:focus-visible,
+.quick-action:focus-visible,
+.detail-row:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--brand-accent) 58%, white);
+  outline-offset: 3px;
+}
+
+.quick-actions {
+  --action-count: 3;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(94px, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.contact-actions > .quick-actions:first-child {
+  margin-top: 0;
+}
+
+.slot-placeholder {
+  margin: 12px 22px 0;
+  padding: 14px 15px;
+  border: 1px solid color-mix(in srgb, var(--brand-accent) 22%, var(--line));
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--soft-accent) 12%, var(--paper));
+  color: var(--ink);
+}
+
+.slot-placeholder strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.slot-placeholder p {
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.quick-action {
+  min-width: 0;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  color: var(--ink);
+  background: color-mix(in srgb, var(--paper) 90%, white);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  transition: border-color 150ms ease, background 150ms ease, transform 150ms ease;
+}
+
+.quick-action svg {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+}
+
+.quick-action--whatsapp {
+  border-color: var(--whatsapp);
+  background: var(--whatsapp);
+  color: white;
+}
+
+.quick-action:hover {
+  border-color: var(--brand-accent);
+  background: color-mix(in srgb, var(--soft-accent) 18%, var(--paper));
+}
+
+.quick-action--whatsapp:hover {
+  border-color: var(--whatsapp);
+  background: color-mix(in srgb, var(--whatsapp) 88%, black);
+}
+
+.quick-action--linkedin {
+  border-color: #0a66c2;
+  background: #0a66c2;
+  color: white;
+}
+
+.quick-action--linkedin:hover {
+  border-color: #084b8f;
+  background: #084b8f;
+}
+
+.quick-action:active {
+  transform: translateY(1px);
+}
+
+.details {
+  margin: 10px 22px 0;
+  border-top: 1px solid var(--line);
+}
+
+.detail-row {
+  min-height: 53px;
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) 18px;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.detail-row:hover .detail-chevron {
+  transform: translateX(2px);
+}
+
+.detail-icon {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  color: var(--ink);
+}
+
+.detail-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.detail-icon--whatsapp {
+  color: var(--whatsapp);
+}
+
+.detail-icon--instagram {
+  color: var(--primary);
+}
+
+.detail-icon--linkedin {
+  color: #0a66c2;
+}
+
+.detail-icon--reviews {
+  color: var(--primary);
+}
+
+.detail-copy {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.detail-label {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.detail-copy strong {
+  overflow: hidden;
+  font-size: 13.5px;
+  font-weight: 500;
+  line-height: 1.3;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.detail-chevron {
+  width: 17px;
+  height: 17px;
+  color: var(--muted);
+  transition: transform 150ms ease;
+}
+
+.card-footer {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: center;
+  align-items: center;
+  column-gap: 8px;
+  row-gap: 1px;
+  padding: 20px 20px 2px;
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.15em;
+}
+
+.corner-brand-mark {
+  position: absolute;
+  z-index: 0;
+  bottom: -44px;
+  left: -48px;
+  width: 154px;
+  height: 154px;
+  border-radius: 50%;
+  object-fit: cover;
+  opacity: 0.055;
+  pointer-events: none;
+}
+
+.card-footer .infinity-mark {
+  width: 25px;
+  height: 25px;
+  color: var(--brand-accent);
+}
+
+.card-footer small {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 8px;
+  letter-spacing: 0.11em;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 360px) {
+  .identity {
+    grid-template-columns: 98px minmax(0, 1fr);
+    gap: 13px;
+    padding-inline: 17px;
+  }
+
+  .business-logo {
+    width: 98px;
+    height: 98px;
+  }
+
+  .identity-copy h1,
+  .card-theme--men .identity-copy h1 {
+    font-size: 31px;
+  }
+
+  .identity-copy p:last-child {
+    font-size: 12px;
+  }
+
+  .contact-actions,
+  .details {
+    margin-inline: 17px;
+  }
+
+  .contact-actions {
+    padding-inline: 0;
+  }
+
+  .quick-action {
+    flex-direction: column;
+    gap: 4px;
+    font-size: 12px;
+  }
+}
+
+/* The deliverable is a normal responsive web page. The bundled device runtime
+   stays mounted for compatibility, but its simulated chrome is intentionally
+   hidden at every width. */
+html,
+body,
+#root {
+  width: 100%;
+  height: 100dvh;
+}
+
+.phone-stage {
+  display: block !important;
+  width: 100% !important;
+  height: 100dvh !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  place-items: initial !important;
+}
+
+.device-menu-bar,
+.phone-bezel,
+.status-bar,
+.home-indicator-svg,
+.android-navigation-bar,
+.device-camera,
+.mobile-cursor,
+.keyboard-dock {
+  display: none !important;
+}
+
+.phone-scale-box,
+.phone-device,
+.device-screen {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.phone-scale-box {
+  position: relative;
+}
+
+.phone-device {
+  position: relative !important;
+  inset: auto !important;
+  transform: none !important;
+}
+
+html body .device-screen {
+  position: relative !important;
+  inset: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none;
+  cursor: auto !important;
+  user-select: auto;
+}
+
+html body .device-screen,
+html body .device-screen *,
+html body .device-screen:active,
+html body .device-screen:active * {
+  cursor: auto !important;
+}
+
+html body .device-screen button,
+html body .device-screen a,
+html body .device-screen [role="button"] {
+  cursor: pointer !important;
+}
+
+html body .device-screen input,
+html body .device-screen textarea,
+html body .device-screen [contenteditable="true"] {
+  cursor: text !important;
+}
+
+.mobile-app-viewport,
+.mobile-app-viewport[data-platform="android"][data-keyboard-visible="false"] {
+  inset: 0 !important;
+}
+
+.card-theme.mobile-page {
+  --mobile-safe-area-height: env(safe-area-inset-bottom, 0px);
+}
+
+.mobile-scroll {
+  touch-action: pan-y !important;
+}
+
+html body .mobile-scroll[data-dragging="true"] {
+  cursor: auto !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
