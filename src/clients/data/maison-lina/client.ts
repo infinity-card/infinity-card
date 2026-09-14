@@ -1,66 +1,73 @@
 import type { ClientCard } from "../../types";
 
-/**
- * To hide a button or row, remove its key from `channels`.
- * To move an enabled channel, edit `quickActions` or `detailItems`.
- */
-export const maisonLina: ClientCard = {
-  slug: "maison-lina",
-  theme: "women",
-  name: "Maison Lina",
-  description: "Mode féminine · Caftans · Accessoires",
-  city: "Rabat",
-  heroImage: "assets/clients/maison-lina/hero.webp",
-  logoImage: "assets/clients/maison-lina/logo.webp",
-  logoAlt: "Monogramme Maison Lina",
-  contactCard: {
-    label: "Ajouter aux contacts",
-    organization: "Maison Lina",
+export const client: ClientCard = {
+  "slug": "maison-lina",
+  "theme": "women",
+  "name": "Maison Lina",
+  "description": "Mode féminine · Caftans · Accessoires",
+  "city": "Rabat",
+  "heroImage": "assets/clients/maison-lina/hero.webp",
+  "logoImage": "assets/clients/maison-lina/logo.webp",
+  "logoAlt": "Monogramme Maison Lina",
+  "contactCard": {
+    "label": "Ajouter aux contacts",
+    "organization": "Maison Lina"
   },
-  channels: {
-    whatsapp: {
-      label: "WhatsApp",
-      value: "+212 6 12 34 56 78",
-      href: "https://wa.me/212612345678",
-      external: true,
+  "channels": {
+    "whatsapp": {
+      "label": "WhatsApp",
+      "value": "+212 6 12 34 56 78",
+      "href": "https://wa.me/212612345678",
+      "external": true
     },
-    phone: {
-      label: "Appeler",
-      value: "+212 6 12 34 56 78",
-      href: "tel:+212612345678",
+    "phone": {
+      "label": "Appeler",
+      "value": "+212 6 12 34 56 78",
+      "href": "tel:+212612345678"
     },
-    reviews: {
-      label: "Avis",
-      value: "Voir les avis · 4,9 ★",
-      href: "https://www.google.com/search?q=Maison+Lina+Rabat+avis",
-      external: true,
+    "reviews": {
+      "label": "Avis",
+      "value": "Voir les avis · 4,9 ★",
+      "href": "https://www.google.com/search?q=Maison+Lina+Rabat+avis",
+      "external": true
     },
-    email: {
-      label: "E-mail",
-      value: "bonjour@maisonlina.ma",
-      href: "mailto:bonjour@maisonlina.ma",
+    "email": {
+      "label": "E-mail",
+      "value": "bonjour@maisonlina.ma",
+      "href": "mailto:bonjour@maisonlina.ma"
     },
-    instagram: {
-      label: "Instagram",
-      value: "@maisonlina",
-      href: "https://instagram.com/maisonlina",
-      external: true,
+    "instagram": {
+      "label": "Instagram",
+      "value": "@maisonlina",
+      "href": "https://instagram.com/maisonlina",
+      "external": true
     },
-    facebook: {
-      label: "Facebook",
-      value: "Maison Lina",
-      href: "https://facebook.com/maisonlina",
-      external: true,
+    "facebook": {
+      "label": "Facebook",
+      "value": "Maison Lina",
+      "href": "https://facebook.com/maisonlina",
+      "external": true
     },
-    address: {
-      label: "Adresse",
-      value: "18 Rue Oued Sebou, Agdal, Rabat",
-      href: "https://maps.google.com/?q=18+Rue+Oued+Sebou+Agdal+Rabat",
-      external: true,
-    },
+    "address": {
+      "label": "Adresse",
+      "value": "18 Rue Oued Sebou, Agdal, Rabat",
+      "href": "https://maps.google.com/?q=18+Rue+Oued+Sebou+Agdal+Rabat",
+      "external": true
+    }
   },
-  quickActions: ["whatsapp", "phone", "reviews"],
-  detailItems: ["phone", "email", "instagram", "facebook", "address", "reviews"],
+  "quickActions": [
+    "whatsapp",
+    "phone",
+    "reviews"
+  ],
+  "detailItems": [
+    "phone",
+    "email",
+    "instagram",
+    "facebook",
+    "address",
+    "reviews"
+  ]
 };
 
-export default maisonLina;
+export default client;
