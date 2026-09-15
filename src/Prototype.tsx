@@ -18,6 +18,7 @@ import { MobileScroll } from "./mobile";
 import { getActiveClient, type ChannelKind } from "./clients";
 import { downloadVCard, imageElementToJpegData } from "./clients/vcard";
 import Builder from "./builder/Builder";
+import { getCardStyleVariables } from "./builder/schema";
 import "./prototype.css";
 
 const iconByKind: Record<ChannelKind, ComponentType> = {
@@ -69,9 +70,7 @@ export default function Prototype() {
         className="card-page"
         data-testid="infinity-card"
         data-theme={client.theme}
-        style={{
-          "--paper-texture": `url("${paperTextureUrl}")`,
-        } as CSSProperties}
+        style={getCardStyleVariables(client.theme, client.colors, paperTextureUrl) as CSSProperties}
       >
         <section className="hero" aria-label={`Photo de ${client.name}`}>
           <img src={`${assetBase}${client.heroImage}`} alt="" draggable="false" />

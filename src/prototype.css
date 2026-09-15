@@ -3,7 +3,7 @@
 @import "@fontsource/roboto/latin-600.css";
 
 .card-theme {
-  --paper: #f8f2e9;
+  --paper: #ffffff;
   --ink: #18211f;
   --muted: #756f69;
   --line: rgba(30, 35, 33, 0.18);
@@ -19,7 +19,7 @@
 }
 
 .card-theme--men {
-  --paper: #f5f0e8;
+  --paper: #ffffff;
   --ink: #0d2029;
   --muted: #6f6c68;
   --line: rgba(13, 32, 41, 0.2);
@@ -31,7 +31,7 @@
 
 .app-screen.card-theme,
 .card-theme .mobile-scroll-content {
-  background-color: #fff;
+  background-color: var(--paper);
 }
 
 .card-theme .mobile-scroll-content {
@@ -47,10 +47,8 @@
   min-height: 100%;
   padding-bottom: calc(var(--mobile-safe-area-height) + 10px);
   overflow: hidden;
-  background-color: #fff;
+  background-color: var(--paper);
   background-image: none;
-  background-repeat: repeat;
-  background-size: 256px 256px;
   color: var(--ink);
 }
 
@@ -90,11 +88,11 @@
   width: 100px;
   height: 100px;
   display: block;
-  border: 2px solid color-mix(in srgb, var(--brand-accent) 68%, var(--paper));
+  border: 0;
   border-radius: 50%;
   object-fit: cover;
   background: var(--paper);
-  box-shadow: 0 8px 24px rgba(42, 28, 20, 0.13);
+  box-shadow: none;
 }
 
 .identity-copy {
