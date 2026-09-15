@@ -988,7 +988,7 @@ export default function Builder() {
   };
 
   const activeChannelKinds = CHANNEL_DEFINITIONS.map((item) => item.kind).filter((kind) => draft.channels[kind]);
-  const displaySlug = normalizeSlug(draft.slug) || "client-slug";
+  const displaySlug = activeSlot?.slug || normalizeSlug(draft.slug) || "client-slug";
   const bridgeLoginUrl = githubBridgeLoginUrl();
 
   const copyPreviewLink = async () => {
