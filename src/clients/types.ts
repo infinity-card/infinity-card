@@ -19,6 +19,14 @@ export type Channel = {
   external?: boolean;
 };
 
+export type CardColors = {
+  background: string;
+  primary: string;
+  accent: string;
+  softAccent: string;
+  ink: string;
+};
+
 export type ClientCard = {
   slug: string;
   theme: CardTheme;
@@ -28,6 +36,7 @@ export type ClientCard = {
   heroImage: string;
   logoImage: string;
   logoAlt: string;
+  colors?: CardColors;
   isPlaceholder?: boolean;
   contactCard?: {
     label: string;
