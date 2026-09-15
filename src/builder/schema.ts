@@ -1,4 +1,49 @@
-import type { CardTheme, ChannelKind, ClientCard } from "../clients/types";
+import type { CardColors, CardTheme, ChannelKind, ClientCard } from "../clients/types";
+
+export const THEME_COLORS: Record<CardTheme, CardColors> = {
+  women: {
+    background: "#ffffff",
+    primary: "#813f51",
+    accent: "#b96f73",
+    softAccent: "#dcb8b6",
+    ink: "#18211f",
+  },
+  men: {
+    background: "#ffffff",
+    primary: "#a34f2e",
+    accent: "#153748",
+    softAccent: "#c9946e",
+    ink: "#0d2029",
+  },
+};
+
+function isHexColor(value: unknown): value is string {
+  return typeof value === "string" && /^#[0-9a-f]{6}$/i.test(value);
+}
+
+export function getCardColors(theme: CardTheme, colors?: Partial<CardColors>): CardColors {
+  const defaults = THEME_COLORS[theme];
+  return {
+    background: isHexColor(colors?.background) ? colors.background : defaults.background,
+    primary: isHexColor(colors?.primary) ? colors.primary : defaults.primary,
+    accent: isHexColor(colors?.accent) ? colors.accent : defaults.accent,
+    softAccent: isHexColor(colors?.softAccent) ? colors.softAccent : defaults.softAccent,
+    ink: isHexColor(colors?.ink) ? colors.ink : defaults.ink,
+  };
+}
+
+export function getCardStyleVariables(theme: CardTheme, colors?: Partial<CardColors>, paperTexture?: string) {
+  const palette = getCardColors(theme, colors);
+  return {
+    "--paper": palette.background,
+    "--ink": palette.ink,
+    "--primary": palette.primary,
+    "--primary-pressed": "color-mix(in srgb, var(--primary) 82%, black)",
+    "--brand-accent": palette.accent,
+    "--soft-accent": palette.softAccent,
+    ...(paperTexture ? { "--paper-texture": `url(\"${paperTexture}\")` } : {}),
+  };
+}
 
 export type BuilderChannel = {
   label: string;
@@ -7,7 +52,8 @@ export type BuilderChannel = {
   external?: boolean;
 };
 
-export type BuilderDraft = Omit<ClientCard, "channels" | "quickActions" | "detailItems"> & {
+export type BuilderDraft = Omit<ClientCard, "channels" | "quickActions" | "detailItems" | "colors"> & {
+  colors: CardColors;
   channels: Partial<Record<ChannelKind, BuilderChannel>>;
   quickActions: ChannelKind[];
   detailItems: ChannelKind[];
@@ -57,6 +103,7 @@ export function createBlankDraft(theme: CardTheme = "women", slug = "nouveau-cli
     name: "",
     description: "",
     city: "",
+    colors: getCardColors(theme),
     ...THEME_DEFAULTS[theme],
     contactCard: {
       label: "Ajouter aux contacts",
@@ -149,6 +196,7 @@ export function toClientCard(draft: BuilderDraft): ClientCard {
     heroImage: draft.heroImage,
     logoImage: draft.logoImage,
     logoAlt: draft.logoAlt.trim() || "Logo du commerce",
+    colors: getCardColors(draft.theme, draft.colors),
     contactCard: draft.contactCard?.label
       ? {
           label: draft.contactCard.label,

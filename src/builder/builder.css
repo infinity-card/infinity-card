@@ -931,6 +931,29 @@
 .builder-theme-picker small { margin-top: 2px; color: var(--builder-muted); font-size: 10px; }
 .builder-theme-picker svg { width: 16px; height: 16px; }
 
+.builder-color-panel {
+  margin: -3px 0 17px;
+  padding: 12px;
+  border: 1px solid var(--builder-line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.45);
+}
+.builder-color-panel-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+.builder-color-panel-head strong,
+.builder-color-panel-head small { display: block; }
+.builder-color-panel-head strong { color: var(--builder-ink); font-size: 12px; font-weight: 600; }
+.builder-color-panel-head small { margin-top: 3px; color: var(--builder-muted); font-size: 10px; }
+.builder-color-panel-head .builder-button { min-height: 30px; padding: 5px 8px; font-size: 9px; white-space: nowrap; }
+.builder-color-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+.builder-color-field { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 7px; min-width: 0; padding: 8px; border: 1px solid rgba(20, 37, 34, 0.12); border-radius: 9px; background: rgba(255, 255, 255, 0.58); cursor: pointer; }
+.builder-color-field span,
+.builder-color-field strong,
+.builder-color-field small { min-width: 0; display: block; }
+.builder-color-field strong { overflow: hidden; color: var(--builder-ink); font-size: 10px; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+.builder-color-field small { margin-top: 2px; overflow: hidden; color: var(--builder-muted); font-size: 8px; text-overflow: ellipsis; white-space: nowrap; }
+.builder-color-field input { width: 28px; height: 28px; padding: 0; border: 0; border-radius: 7px; background: transparent; cursor: pointer; }
+.builder-color-field code { grid-column: 1 / -1; color: var(--builder-muted); font: 9px/1.2 ui-monospace, SFMono-Regular, Consolas, monospace; text-transform: uppercase; }
+
 .builder-image-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1104,6 +1127,9 @@
   .theme-swatch { width: 24px; height: 24px; }
   .builder-theme-picker strong { font-size: 10px; }
   .builder-theme-picker small { font-size: 8px; }
+  .builder-color-panel-head { align-items: stretch; flex-direction: column; gap: 8px; }
+  .builder-color-panel-head .builder-button { width: fit-content; }
+  .builder-color-grid { grid-template-columns: 1fr; }
   .builder-image-upload { min-height: 67px; }
   .builder-qr-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .builder-qr-actions .builder-button:last-child { grid-column: 1 / -1; }

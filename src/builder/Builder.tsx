@@ -21,12 +21,14 @@ import {
   type CardSlotStatus,
 } from "../cards/inventory";
 import { downloadVCard, imageElementToJpegData } from "../clients/vcard";
-import type { CardTheme, ChannelKind } from "../clients/types";
+import type { CardColors, CardTheme, ChannelKind } from "../clients/types";
 import {
   CHANNEL_DEFINITIONS,
   cloneDraft,
   createBlankDraft,
   getImageSource,
+  getCardColors,
+  getCardStyleVariables,
   normalizeSlug,
   type BuilderChannel,
   type BuilderDraft,
@@ -347,6 +349,49 @@ function Toggle({ checked, onChange, label }: { checked: boolean; onChange: (val
       </span>
       <span>{label}</span>
     </label>
+  );
+}
+
+const COLOR_FIELDS: Array<{ key: keyof CardColors; label: string; hint: string }> = [
+  { key: "background", label: "Fond de la page", hint: "خلفية الكارت" },
+  { key: "primary", label: "Bouton principal", hint: "الزر الرئيسي" },
+  { key: "accent", label: "Accent", hint: "العناوين واللمسات" },
+  { key: "softAccent", label: "Accent doux", hint: "الخلفيات الخفيفة" },
+  { key: "ink", label: "Texte", hint: "لون الكتابة" },
+];
+
+function ColorPaletteEditor({
+  theme,
+  colors,
+  onChange,
+  onReset,
+}: {
+  theme: CardTheme;
+  colors?: Partial<CardColors>;
+  onChange: (key: keyof CardColors, value: string) => void;
+  onReset: () => void;
+}) {
+  const palette = getCardColors(theme, colors);
+
+  return (
+    <div className="builder-color-panel">
+      <div className="builder-color-panel-head">
+        <div>
+          <strong>Couleurs de la page</strong>
+          <small>نسّق الألوان مع logo ديال كل محل</small>
+        </div>
+        <button type="button" className="builder-button builder-button--quiet" onClick={onReset}>ألوان القالب</button>
+      </div>
+      <div className="builder-color-grid">
+        {COLOR_FIELDS.map(({ key, label, hint }) => (
+          <label className="builder-color-field" key={key}>
+            <span><strong>{label}</strong><small>{hint}</small></span>
+            <input type="color" value={palette[key]} aria-label={label} onChange={(event) => onChange(key, event.target.value)} />
+            <code>{palette[key]}</code>
+          </label>
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -696,7 +741,11 @@ function LivePreview({ draft }: { draft: BuilderDraft }) {
         <span>Preview live</span>
         <span className="builder-preview-status"><CheckCircledIcon /> En direct</span>
       </div>
-      <article className={`builder-live-card card-theme card-theme--${client.theme}`} data-theme={client.theme}>
+      <article
+        className={`builder-live-card card-theme card-theme--${client.theme}`}
+        data-theme={client.theme}
+        style={getCardStyleVariables(client.theme, client.colors) as CSSProperties}
+      >
         <main className="card-page">
           <section className="hero" aria-label={`Photo de ${client.name || "votre client"}`}>
             <img src={getImageSource(client.heroImage, draft.heroImageData)} alt="" draggable="false" />
@@ -833,10 +882,22 @@ export default function Builder() {
     setDraft((current) => ({
       ...current,
       theme,
+      colors: getCardColors(theme),
       heroImage: current.heroImageData ? current.heroImage : defaults.heroImage,
       logoImage: current.logoImageData ? current.logoImage : defaults.logoImage,
       logoAlt: defaults.logoAlt,
     }));
+  };
+
+  const updateColor = (key: keyof CardColors, value: string) => {
+    setDraft((current) => ({
+      ...current,
+      colors: { ...getCardColors(current.theme, current.colors), [key]: value },
+    }));
+  };
+
+  const resetColors = () => {
+    setDraft((current) => ({ ...current, colors: getCardColors(current.theme) }));
   };
 
   const saveDraft = () => {
@@ -1123,6 +1184,7 @@ export default function Builder() {
                 <button type="button" className={draft.theme === "women" ? "is-selected theme-women" : "theme-women"} onClick={() => handleTheme("women")}><span className="theme-swatch" /><span><strong>Élégance</strong><small>Template femmes</small></span>{draft.theme === "women" ? <CheckCircledIcon /> : null}</button>
                 <button type="button" className={draft.theme === "men" ? "is-selected theme-men" : "theme-men"} onClick={() => handleTheme("men")}><span className="theme-swatch" /><span><strong>Signature</strong><small>Template hommes</small></span>{draft.theme === "men" ? <CheckCircledIcon /> : null}</button>
               </div>
+              <ColorPaletteEditor theme={draft.theme} colors={draft.colors} onChange={updateColor} onReset={resetColors} />
               <div className="builder-form-grid">
                 <DraftField label="Nom du commerce" value={draft.name} placeholder="Ex. Maison Lina" onChange={(value) => updateDraft({ name: value })} />
                 <DraftField label="Ville" value={draft.city} placeholder="Rabat" onChange={(value) => updateDraft({ city: value })} />
