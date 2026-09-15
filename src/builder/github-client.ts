@@ -59,13 +59,29 @@ export function buildGithubPublishPayload(draft: BuilderDraft): GithubPublishPay
 
   if (draft.heroImageData) {
     const content = dataUrlToBase64(draft.heroImageData);
-    if (content) files.push({ path: `public/assets/clients/${slug}/hero.webp`, content, encoding: "base64" });
+    if (content) {
+      // Keep the generated client module in sync with the uploaded asset.
+      client.heroImage = `assets/clients/${slug}/hero.webp`;
+      files.push({ path: `public/assets/clients/${slug}/hero.webp`, content, encoding: "base64" });
+    }
   }
 
   if (draft.logoImageData) {
     const content = dataUrlToBase64(draft.logoImageData);
-    if (content) files.push({ path: `public/assets/clients/${slug}/logo.webp`, content, encoding: "base64" });
+    if (content) {
+      // Keep the generated client module in sync with the uploaded asset.
+      client.logoImage = `assets/clients/${slug}/logo.webp`;
+      files.push({ path: `public/assets/clients/${slug}/logo.webp`, content, encoding: "base64" });
+    }
   }
+
+  // Re-serialize after image paths are finalized so the published page uses
+  // the new files instead of the template defaults.
+  files[0] = {
+    path: `src/clients/data/${slug}/client.ts`,
+    content: serializeClientModule(client),
+    encoding: "utf-8",
+  };
 
   return {
     client,
