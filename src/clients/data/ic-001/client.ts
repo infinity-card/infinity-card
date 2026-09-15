@@ -2,63 +2,72 @@ import type { ClientCard } from "../../types";
 
 export const client: ClientCard = {
   "slug": "ic-001",
-  "theme": "women",
-  "name": "Maison Lina",
-  "description": "Mode féminine · Caftans · Accessoires",
-  "city": "Rabat",
-  "heroImage": "assets/clients/maison-lina/hero.webp",
-  "logoImage": "assets/clients/maison-lina/logo.webp",
+  "theme": "men",
+  "name": "INFINITY CARD",
+  "description": "Infinity Card , Un simple geste, des connexions infinies.",
+  "city": "Meknès",
+  "heroImage": "assets/clients/atelier-yassine/hero.webp",
+  "logoImage": "assets/clients/atelier-yassine/logo.webp",
   "logoAlt": "Logo du commerce",
+  "colors": {
+    "background": "#ffffff",
+    "primary": "#0011ff",
+    "accent": "#153748",
+    "softAccent": "#c9946e",
+    "ink": "#0d2029"
+  },
   "contactCard": {
     "label": "Ajouter aux contacts",
-    "organization": "Maison Lina"
+    "organization": "INFINITY CARD"
   },
   "channels": {
     "whatsapp": {
       "label": "WhatsApp",
-      "value": "+212 6 12 34 56 78",
-      "href": "https://wa.me/212612345678",
+      "value": "+212 691-796692",
+      "href": "https://wa.me/212691796692",
       "external": true
     },
     "phone": {
       "label": "Téléphone",
-      "value": "+212 6 12 34 56 78",
-      "href": "tel:+212612345678"
+      "value": "+212 691-796692",
+      "href": "tel:+212 691-796692"
     },
     "email": {
       "label": "E-mail",
-      "value": "bonjour@maisonlina.ma",
-      "href": "mailto:bonjour@maisonlina.ma"
+      "value": "abdoukassou1200@gmail.com",
+      "href": "mailto:abdoukassou1200@gmail.com"
     },
     "instagram": {
       "label": "Instagram",
-      "value": "@maisonlina",
-      "href": "https://instagram.com/maisonlina",
+      "value": "@infinitycard",
+      "href": "https://www.instagram.com/infitycard?stkn=Y2hwM29tNzNqNjVk",
       "external": true
     },
-    "address": {
-      "label": "Adresse",
-      "value": "18 Rue Oued Sebou, Agdal, Rabat",
-      "href": "https://maps.google.com/?q=18+Rue+Oued+Sebou+Agdal+Rabat",
+    "linkedin": {
+      "label": "LinkedIn",
+      "value": "OUKASSOU abdejellil",
+      "href": "https://www.linkedin.com/in/abdejellil-oukassou-37105b349/",
       "external": true
     },
-    "reviews": {
-      "label": "Avis Google",
-      "value": "Voir les avis · 4,9 ★",
-      "href": "https://www.google.com/search?q=Maison+Lina+Rabat+avis",
+    "facebook": {
+      "label": "Facebook",
+      "value": "infinity_card",
+      "href": "https://facebook.com/infinity_card",
       "external": true
     }
   },
   "quickActions": [
     "whatsapp",
     "phone",
-    "reviews"
+    "instagram"
   ],
   "detailItems": [
+    "whatsapp",
     "phone",
     "email",
-    "address",
-    "reviews"
+    "instagram",
+    "linkedin",
+    "facebook"
   ]
 };
 
