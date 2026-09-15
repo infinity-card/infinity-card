@@ -47,7 +47,7 @@ export function downloadVCard(client: ClientCard, photoData?: string) {
     phone ? `TEL;TYPE=CELL:${escapeVCard(phone)}` : null,
     client.channels.email?.value ? `EMAIL:${escapeVCard(client.channels.email.value)}` : null,
     client.channels.address?.value ? `ADR;TYPE=WORK:;;${escapeVCard(client.channels.address.value)};;;;` : null,
-    client.channels.website?.href ? `URL:${client.channels.website.href}` : null,
+    client.channels.website?.href ? `URL:${escapeVCard(client.channels.website.href)}` : null,
     "END:VCARD",
   ].filter((line): line is string => Boolean(line));
 

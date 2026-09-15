@@ -162,6 +162,7 @@ function githubHeaders(token, jsonBody = false) {
   const headers = {
     accept: "application/vnd.github+json",
     authorization: `Bearer ${token}`,
+    "user-agent": "Infinity-Card-Builder-Bridge",
     "x-github-api-version": "2022-11-28",
   };
   if (jsonBody) headers["content-type"] = "application/json";
@@ -199,6 +200,95 @@ function validSlug(slug) {
   return /^ic-\d{3}$/.test(slug) && number >= 1 && number <= 200;
 }
 
+const CHANNEL_KINDS = new Set([
+  "whatsapp",
+  "phone",
+  "reviews",
+  "email",
+  "instagram",
+  "linkedin",
+  "facebook",
+  "tiktok",
+  "address",
+  "website",
+]);
+
+function isPlainObject(value) {
+  return Boolean(value) && typeof value === "object" && !Array.isArray(value);
+}
+
+function validText(value, maxLength = 2000) {
+  return typeof value === "string" && value.length <= maxLength && !/[\u0000-\u001f\u007f]/.test(value);
+}
+
+function validHref(value) {
+  if (!validText(value, 4000)) return false;
+  try {
+    const protocol = new URL(value).protocol.toLowerCase();
+    return protocol === "http:" || protocol === "https:" || protocol === "mailto:" || protocol === "tel:";
+  } catch {
+    return false;
+  }
+}
+
+function validateClientData(client, slug) {
+  if (!isPlainObject(client) || client.slug !== slug || !["women", "men"].includes(client.theme)) {
+    throw new Error("Client data is invalid.");
+  }
+  for (const key of ["name", "description", "city", "heroImage", "logoImage", "logoAlt"]) {
+    if (!validText(client[key])) throw new Error(`Client field ${key} is invalid.`);
+  }
+  if (client.colors !== undefined) {
+    if (!isPlainObject(client.colors)) throw new Error("Client colors are invalid.");
+    for (const key of ["background", "primary", "accent", "softAccent", "ink"]) {
+      if (typeof client.colors[key] !== "string" || !/^#[0-9a-f]{6}$/i.test(client.colors[key])) {
+        throw new Error("Client colors are invalid.");
+      }
+    }
+  }
+  if (client.contactCard !== undefined) {
+    if (!isPlainObject(client.contactCard) || !validText(client.contactCard.label, 200)) {
+      throw new Error("Client contact card is invalid.");
+    }
+    if (client.contactCard.organization !== undefined && !validText(client.contactCard.organization, 200)) {
+      throw new Error("Client contact card is invalid.");
+    }
+  }
+  if (!isPlainObject(client.channels)) throw new Error("Client channels are invalid.");
+  for (const [kind, channel] of Object.entries(client.channels)) {
+    if (!CHANNEL_KINDS.has(kind) || !isPlainObject(channel)) throw new Error("Client channel is invalid.");
+    if (!validText(channel.label, 200) || !validText(channel.value ?? "", 2000) || !validHref(channel.href)) {
+      throw new Error("Client channel is invalid.");
+    }
+    if (channel.external !== undefined && typeof channel.external !== "boolean") {
+      throw new Error("Client channel is invalid.");
+    }
+  }
+  for (const key of ["quickActions", "detailItems"]) {
+    if (!Array.isArray(client[key]) || client[key].some((kind) => !CHANNEL_KINDS.has(kind) || !client.channels[kind])) {
+      throw new Error("Client placements are invalid.");
+    }
+  }
+}
+
+function serializeClientModule(client) {
+  const data = JSON.stringify(client, null, 2);
+  return `import type { ClientCard } from "../../types";\n\nexport const client: ClientCard = ${data};\n\nexport default client;\n`;
+}
+
+function validateWriteRequest(request, env) {
+  const allowedOrigin = config(env, "PUBLIC_APP_ORIGIN");
+  const requestOrigin = request.headers.get("Origin") || "";
+  if (!allowedOrigin || requestOrigin !== allowedOrigin) {
+    return { status: 403, message: "Origin not allowed." };
+  }
+  const contentType = request.headers.get("Content-Type") || "";
+  if (!/^application\/json(?:\s*;|$)/i.test(contentType)) {
+    return { status: 415, message: "Content-Type must be application/json." };
+  }
+  return null;
+}
+
 function utf8ToBase64(value) {
   return bytesToBase64(encoder.encode(value));
 }
@@ -212,6 +302,7 @@ function validateClientPayload(payload) {
   const client = payload.client;
   const slug = normalizeSlug(client?.slug);
   if (!client || !validSlug(slug)) throw new Error("Invalid client slug.");
+  validateClientData(client, slug);
   if (!Array.isArray(payload.files) || payload.files.length < 1 || payload.files.length > 3) {
     throw new Error("A client publish must contain one to three files.");
   }
@@ -229,6 +320,9 @@ function validateClientPayload(payload) {
     const size = file.encoding === "base64" ? Math.floor(file.content.length * 0.75) : encoder.encode(file.content).length;
     if (size > MAX_FILE_BYTES) throw new Error("Client file is too large.");
     if (file.encoding === "base64" && !isBase64(file.content)) throw new Error("Client image data is invalid.");
+    if (file.path === `src/clients/data/${slug}/client.ts` && (file.encoding !== "utf-8" || file.content !== serializeClientModule(client))) {
+      throw new Error("Client data file must match the generated client data.");
+    }
     seen.add(file.path);
   }
   if (!seen.has(`src/clients/data/${slug}/client.ts`)) throw new Error("Client data file is required.");
@@ -248,30 +342,49 @@ function validateBackupPayload(payload) {
   return { files: payload.files, commitMessage: String(payload.commitMessage || "Update Infinity Card backup").slice(0, 120) };
 }
 
-async function commitFiles(files, commitMessage, token, env) {
-  const owner = config(env, "GITHUB_OWNER");
-  const repo = config(env, "GITHUB_REPO");
-  const branch = config(env, "GITHUB_BRANCH") || "main";
-  const ref = await githubFetch(`/repos/${owner}/${repo}/git/ref/heads/${encodeURIComponent(branch)}`, token);
-  const parent = await githubFetch(`/repos/${owner}/${repo}/git/commits/${ref.object.sha}`, token);
+function repositoryConfig(env, kind) {
+  const prefix = kind === "backup" ? "GITHUB_BACKUP_" : "GITHUB_";
+  const owner = config(env, `${prefix}OWNER`);
+  const repo = config(env, `${prefix}REPO`);
+  const branch = config(env, `${prefix}BRANCH`) || "main";
+  if (!owner || !repo) {
+    if (kind === "backup") throw new Error("Backup requires a separate private GitHub repository.");
+    throw new Error("GitHub repository is not configured.");
+  }
+  return { owner, repo, branch };
+}
+
+async function commitFiles(files, commitMessage, token, env, kind = "client") {
+  const { owner, repo, branch } = repositoryConfig(env, kind);
+  const writeToken = kind === "backup" ? config(env, "GITHUB_BACKUP_TOKEN") : token;
+  if (!writeToken) {
+    if (kind === "backup") throw new Error("Backup requires GITHUB_BACKUP_TOKEN for the private repository.");
+    throw new Error("GitHub write token is not configured.");
+  }
+  if (kind === "backup") {
+    const repository = await githubFetch(`/repos/${owner}/${repo}`, writeToken);
+    if (repository.private !== true) throw new Error("Backup repository must be private.");
+  }
+  const ref = await githubFetch(`/repos/${owner}/${repo}/git/ref/heads/${encodeURIComponent(branch)}`, writeToken);
+  const parent = await githubFetch(`/repos/${owner}/${repo}/git/commits/${ref.object.sha}`, writeToken);
   const treeEntries = [];
   for (const file of files) {
     const content = file.encoding === "base64" ? file.content : utf8ToBase64(file.content);
-    const blob = await githubFetch(`/repos/${owner}/${repo}/git/blobs`, token, {
+    const blob = await githubFetch(`/repos/${owner}/${repo}/git/blobs`, writeToken, {
       method: "POST",
       body: JSON.stringify({ content, encoding: "base64" }),
     });
     treeEntries.push({ path: file.path, mode: "100644", type: "blob", sha: blob.sha });
   }
-  const tree = await githubFetch(`/repos/${owner}/${repo}/git/trees`, token, {
+  const tree = await githubFetch(`/repos/${owner}/${repo}/git/trees`, writeToken, {
     method: "POST",
     body: JSON.stringify({ base_tree: parent.tree.sha, tree: treeEntries }),
   });
-  const commit = await githubFetch(`/repos/${owner}/${repo}/git/commits`, token, {
+  const commit = await githubFetch(`/repos/${owner}/${repo}/git/commits`, writeToken, {
     method: "POST",
     body: JSON.stringify({ message: commitMessage, tree: tree.sha, parents: [parent.sha] }),
   });
-  await githubFetch(`/repos/${owner}/${repo}/git/refs/heads/${encodeURIComponent(branch)}`, token, {
+  await githubFetch(`/repos/${owner}/${repo}/git/refs/heads/${encodeURIComponent(branch)}`, writeToken, {
     method: "PATCH",
     body: JSON.stringify({ sha: commit.sha, force: false }),
   });
@@ -285,7 +398,8 @@ async function startGithubLogin(request, env) {
   const params = new URLSearchParams({
     client_id: config(env, "GITHUB_CLIENT_ID"),
     redirect_uri: oauthCallbackUrl(request, env),
-    scope: "repo",
+    // The Infinity Card repository is public; request the narrowest OAuth scope needed.
+    scope: "public_repo",
     state,
     allow_signup: "false",
   });
@@ -351,6 +465,8 @@ function loginUrl(request, env) {
 }
 
 async function handleWrite(request, env, kind) {
+  const requestError = validateWriteRequest(request, env);
+  if (requestError) return json({ ok: false, message: requestError.message }, requestError.status, request, env);
   const session = await requireSession(request, env);
   if (!session) return json({ ok: false, code: "AUTH_REQUIRED", message: "Connecte ton compte GitHub avant de publier.", authUrl: loginUrl(request, env) }, 401, request, env);
   const length = Number(request.headers.get("content-length") || 0);
@@ -363,7 +479,7 @@ async function handleWrite(request, env, kind) {
   }
   try {
     const validated = kind === "client" ? validateClientPayload(payload) : validateBackupPayload(payload);
-    const url = await commitFiles(validated.files, validated.commitMessage, session.token, env);
+    const url = await commitFiles(validated.files, validated.commitMessage, session.token, env, kind);
     return json({ ok: true, url, message: kind === "client" ? "Client publié sur GitHub." : "Backup sauvegardé sur GitHub." }, 200, request, env);
   } catch (error) {
     const status = Number(error?.status) === 409 ? 409 : 400;
@@ -392,4 +508,12 @@ export default {
   },
 };
 
-export { normalizeSlug, validSlug, validateBackupPayload, validateClientPayload };
+export {
+  normalizeSlug,
+  validSlug,
+  validateBackupPayload,
+  validateClientPayload,
+  validateWriteRequest,
+  serializeClientModule,
+  commitFiles,
+};

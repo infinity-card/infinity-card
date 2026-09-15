@@ -132,14 +132,23 @@ export function getImageSource(path: string, data?: string) {
   return `${import.meta.env.BASE_URL}${path}`;
 }
 
+function isSafeHref(value: string) {
+  try {
+    const protocol = new URL(value.trim()).protocol.toLowerCase();
+    return protocol === "http:" || protocol === "https:" || protocol === "mailto:" || protocol === "tel:";
+  } catch {
+    return false;
+  }
+}
+
 function isUrl(value: string) {
-  return /^(https?:\/\/|mailto:|tel:)/i.test(value.trim());
+  return isSafeHref(value);
 }
 
 function inferChannelHref(kind: ChannelKind, value: string, href: string) {
   const cleanValue = value.trim();
   const cleanHref = href.trim();
-  if (cleanHref) return cleanHref;
+  if (cleanHref && isSafeHref(cleanHref)) return cleanHref;
   if (!cleanValue) return "";
   if (isUrl(cleanValue)) return cleanValue;
 

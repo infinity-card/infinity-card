@@ -23,9 +23,9 @@ back to the Infinity Card Pages URL instead of generating a phone-inaccessible
 and **Ouvrir** actions.
 
 The **Backup** button saves a JSON snapshot of all 200 slots and saved client
-drafts. With the private GitHub bridge configured, it commits automatically to
-`data/backups/infinity-card-backup.json`; before the bridge is connected, it
-downloads the same snapshot locally.
+drafts. With the GitHub bridge configured, it commits only to a separately
+configured **private** backup repository; if that repository is not configured
+or is public, it downloads the same snapshot locally instead.
 
 Each inventory card can be marked **Vendue** after the physical sale. Saving
 or publishing that card keeps the sold status, and **Annuler vente** returns it

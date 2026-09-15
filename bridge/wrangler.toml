@@ -11,3 +11,8 @@ GITHUB_ALLOWED_USER = "infinity-card"
 PUBLIC_APP_ORIGIN = "https://infinity-card.github.io"
 # Replace this with the deployed Worker URL before creating the OAuth App.
 BRIDGE_PUBLIC_URL = "https://infinity-card-github-bridge.YOUR_SUBDOMAIN.workers.dev"
+# Backups must go to a separate private repository. Set these in the deployed
+# Worker variables; leaving them empty disables remote backups safely.
+GITHUB_BACKUP_OWNER = ""
+GITHUB_BACKUP_REPO = ""
+GITHUB_BACKUP_BRANCH = "main"
