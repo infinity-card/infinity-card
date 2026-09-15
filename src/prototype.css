@@ -31,7 +31,7 @@
 
 .app-screen.card-theme,
 .card-theme .mobile-scroll-content {
-  background-color: var(--paper);
+  background-color: #fff;
 }
 
 .card-theme .mobile-scroll-content {
@@ -47,8 +47,8 @@
   min-height: 100%;
   padding-bottom: calc(var(--mobile-safe-area-height) + 10px);
   overflow: hidden;
-  background-color: var(--paper);
-  background-image: var(--paper-texture);
+  background-color: #fff;
+  background-image: none;
   background-repeat: repeat;
   background-size: 256px 256px;
   color: var(--ink);
