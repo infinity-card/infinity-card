@@ -42,12 +42,21 @@ const clientFile = {
 const client = validateClientPayload({
   client: clientData,
   files: [clientFile, {
+    path: "public/assets/clients/ic-001/hero.webp",
+    content: "AAAA",
+    encoding: "base64",
+  }, {
     path: "public/assets/clients/ic-001/logo.webp",
     content: "AAAA",
     encoding: "base64",
   }],
 });
 assert.equal(client.slug, "ic-001");
+assert.deepEqual(client.files.map((file) => file.path), [
+  "src/clients/data/ic-001/client.ts",
+  "public/assets/clients/ic-001/hero.webp",
+  "public/assets/clients/ic-001/logo.webp",
+]);
 assert.throws(() => validateClientPayload({
   client: clientData,
   files: [{ ...clientFile, content: "export const client = {};" }],
