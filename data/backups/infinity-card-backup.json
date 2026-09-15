@@ -1,0 +1,809 @@
+{
+  "version": 1,
+  "generatedAt": "2026-09-15T00:54:47.690Z",
+  "totalCardSlots": 200,
+  "lastSelectedSlot": "ic-001",
+  "slots": {
+    "ic-001": {
+      "status": "published"
+    },
+    "ic-002": {
+      "status": "available"
+    },
+    "ic-003": {
+      "status": "available"
+    },
+    "ic-004": {
+      "status": "available"
+    },
+    "ic-005": {
+      "status": "available"
+    },
+    "ic-006": {
+      "status": "available"
+    },
+    "ic-007": {
+      "status": "available"
+    },
+    "ic-008": {
+      "status": "available"
+    },
+    "ic-009": {
+      "status": "available"
+    },
+    "ic-010": {
+      "status": "available"
+    },
+    "ic-011": {
+      "status": "available"
+    },
+    "ic-012": {
+      "status": "available"
+    },
+    "ic-013": {
+      "status": "available"
+    },
+    "ic-014": {
+      "status": "available"
+    },
+    "ic-015": {
+      "status": "available"
+    },
+    "ic-016": {
+      "status": "available"
+    },
+    "ic-017": {
+      "status": "available"
+    },
+    "ic-018": {
+      "status": "available"
+    },
+    "ic-019": {
+      "status": "available"
+    },
+    "ic-020": {
+      "status": "available"
+    },
+    "ic-021": {
+      "status": "available"
+    },
+    "ic-022": {
+      "status": "available"
+    },
+    "ic-023": {
+      "status": "available"
+    },
+    "ic-024": {
+      "status": "available"
+    },
+    "ic-025": {
+      "status": "available"
+    },
+    "ic-026": {
+      "status": "available"
+    },
+    "ic-027": {
+      "status": "available"
+    },
+    "ic-028": {
+      "status": "available"
+    },
+    "ic-029": {
+      "status": "available"
+    },
+    "ic-030": {
+      "status": "available"
+    },
+    "ic-031": {
+      "status": "available"
+    },
+    "ic-032": {
+      "status": "available"
+    },
+    "ic-033": {
+      "status": "available"
+    },
+    "ic-034": {
+      "status": "available"
+    },
+    "ic-035": {
+      "status": "available"
+    },
+    "ic-036": {
+      "status": "available"
+    },
+    "ic-037": {
+      "status": "available"
+    },
+    "ic-038": {
+      "status": "available"
+    },
+    "ic-039": {
+      "status": "available"
+    },
+    "ic-040": {
+      "status": "available"
+    },
+    "ic-041": {
+      "status": "available"
+    },
+    "ic-042": {
+      "status": "available"
+    },
+    "ic-043": {
+      "status": "available"
+    },
+    "ic-044": {
+      "status": "available"
+    },
+    "ic-045": {
+      "status": "available"
+    },
+    "ic-046": {
+      "status": "available"
+    },
+    "ic-047": {
+      "status": "available"
+    },
+    "ic-048": {
+      "status": "available"
+    },
+    "ic-049": {
+      "status": "available"
+    },
+    "ic-050": {
+      "status": "available"
+    },
+    "ic-051": {
+      "status": "available"
+    },
+    "ic-052": {
+      "status": "available"
+    },
+    "ic-053": {
+      "status": "available"
+    },
+    "ic-054": {
+      "status": "available"
+    },
+    "ic-055": {
+      "status": "available"
+    },
+    "ic-056": {
+      "status": "available"
+    },
+    "ic-057": {
+      "status": "available"
+    },
+    "ic-058": {
+      "status": "available"
+    },
+    "ic-059": {
+      "status": "available"
+    },
+    "ic-060": {
+      "status": "available"
+    },
+    "ic-061": {
+      "status": "available"
+    },
+    "ic-062": {
+      "status": "available"
+    },
+    "ic-063": {
+      "status": "available"
+    },
+    "ic-064": {
+      "status": "available"
+    },
+    "ic-065": {
+      "status": "available"
+    },
+    "ic-066": {
+      "status": "available"
+    },
+    "ic-067": {
+      "status": "available"
+    },
+    "ic-068": {
+      "status": "available"
+    },
+    "ic-069": {
+      "status": "available"
+    },
+    "ic-070": {
+      "status": "available"
+    },
+    "ic-071": {
+      "status": "available"
+    },
+    "ic-072": {
+      "status": "available"
+    },
+    "ic-073": {
+      "status": "available"
+    },
+    "ic-074": {
+      "status": "available"
+    },
+    "ic-075": {
+      "status": "available"
+    },
+    "ic-076": {
+      "status": "available"
+    },
+    "ic-077": {
+      "status": "available"
+    },
+    "ic-078": {
+      "status": "available"
+    },
+    "ic-079": {
+      "status": "available"
+    },
+    "ic-080": {
+      "status": "available"
+    },
+    "ic-081": {
+      "status": "available"
+    },
+    "ic-082": {
+      "status": "available"
+    },
+    "ic-083": {
+      "status": "available"
+    },
+    "ic-084": {
+      "status": "available"
+    },
+    "ic-085": {
+      "status": "available"
+    },
+    "ic-086": {
+      "status": "available"
+    },
+    "ic-087": {
+      "status": "available"
+    },
+    "ic-088": {
+      "status": "available"
+    },
+    "ic-089": {
+      "status": "available"
+    },
+    "ic-090": {
+      "status": "available"
+    },
+    "ic-091": {
+      "status": "available"
+    },
+    "ic-092": {
+      "status": "available"
+    },
+    "ic-093": {
+      "status": "available"
+    },
+    "ic-094": {
+      "status": "available"
+    },
+    "ic-095": {
+      "status": "available"
+    },
+    "ic-096": {
+      "status": "available"
+    },
+    "ic-097": {
+      "status": "available"
+    },
+    "ic-098": {
+      "status": "available"
+    },
+    "ic-099": {
+      "status": "available"
+    },
+    "ic-100": {
+      "status": "available"
+    },
+    "ic-101": {
+      "status": "available"
+    },
+    "ic-102": {
+      "status": "available"
+    },
+    "ic-103": {
+      "status": "available"
+    },
+    "ic-104": {
+      "status": "available"
+    },
+    "ic-105": {
+      "status": "available"
+    },
+    "ic-106": {
+      "status": "available"
+    },
+    "ic-107": {
+      "status": "available"
+    },
+    "ic-108": {
+      "status": "available"
+    },
+    "ic-109": {
+      "status": "available"
+    },
+    "ic-110": {
+      "status": "available"
+    },
+    "ic-111": {
+      "status": "available"
+    },
+    "ic-112": {
+      "status": "available"
+    },
+    "ic-113": {
+      "status": "available"
+    },
+    "ic-114": {
+      "status": "available"
+    },
+    "ic-115": {
+      "status": "available"
+    },
+    "ic-116": {
+      "status": "available"
+    },
+    "ic-117": {
+      "status": "available"
+    },
+    "ic-118": {
+      "status": "available"
+    },
+    "ic-119": {
+      "status": "available"
+    },
+    "ic-120": {
+      "status": "available"
+    },
+    "ic-121": {
+      "status": "available"
+    },
+    "ic-122": {
+      "status": "available"
+    },
+    "ic-123": {
+      "status": "available"
+    },
+    "ic-124": {
+      "status": "available"
+    },
+    "ic-125": {
+      "status": "available"
+    },
+    "ic-126": {
+      "status": "available"
+    },
+    "ic-127": {
+      "status": "available"
+    },
+    "ic-128": {
+      "status": "available"
+    },
+    "ic-129": {
+      "status": "available"
+    },
+    "ic-130": {
+      "status": "available"
+    },
+    "ic-131": {
+      "status": "available"
+    },
+    "ic-132": {
+      "status": "available"
+    },
+    "ic-133": {
+      "status": "available"
+    },
+    "ic-134": {
+      "status": "available"
+    },
+    "ic-135": {
+      "status": "available"
+    },
+    "ic-136": {
+      "status": "available"
+    },
+    "ic-137": {
+      "status": "available"
+    },
+    "ic-138": {
+      "status": "available"
+    },
+    "ic-139": {
+      "status": "available"
+    },
+    "ic-140": {
+      "status": "available"
+    },
+    "ic-141": {
+      "status": "available"
+    },
+    "ic-142": {
+      "status": "available"
+    },
+    "ic-143": {
+      "status": "available"
+    },
+    "ic-144": {
+      "status": "available"
+    },
+    "ic-145": {
+      "status": "available"
+    },
+    "ic-146": {
+      "status": "available"
+    },
+    "ic-147": {
+      "status": "available"
+    },
+    "ic-148": {
+      "status": "available"
+    },
+    "ic-149": {
+      "status": "available"
+    },
+    "ic-150": {
+      "status": "available"
+    },
+    "ic-151": {
+      "status": "available"
+    },
+    "ic-152": {
+      "status": "available"
+    },
+    "ic-153": {
+      "status": "available"
+    },
+    "ic-154": {
+      "status": "available"
+    },
+    "ic-155": {
+      "status": "available"
+    },
+    "ic-156": {
+      "status": "available"
+    },
+    "ic-157": {
+      "status": "available"
+    },
+    "ic-158": {
+      "status": "available"
+    },
+    "ic-159": {
+      "status": "available"
+    },
+    "ic-160": {
+      "status": "available"
+    },
+    "ic-161": {
+      "status": "available"
+    },
+    "ic-162": {
+      "status": "available"
+    },
+    "ic-163": {
+      "status": "available"
+    },
+    "ic-164": {
+      "status": "available"
+    },
+    "ic-165": {
+      "status": "available"
+    },
+    "ic-166": {
+      "status": "available"
+    },
+    "ic-167": {
+      "status": "available"
+    },
+    "ic-168": {
+      "status": "available"
+    },
+    "ic-169": {
+      "status": "available"
+    },
+    "ic-170": {
+      "status": "available"
+    },
+    "ic-171": {
+      "status": "available"
+    },
+    "ic-172": {
+      "status": "available"
+    },
+    "ic-173": {
+      "status": "available"
+    },
+    "ic-174": {
+      "status": "available"
+    },
+    "ic-175": {
+      "status": "available"
+    },
+    "ic-176": {
+      "status": "available"
+    },
+    "ic-177": {
+      "status": "available"
+    },
+    "ic-178": {
+      "status": "available"
+    },
+    "ic-179": {
+      "status": "available"
+    },
+    "ic-180": {
+      "status": "available"
+    },
+    "ic-181": {
+      "status": "available"
+    },
+    "ic-182": {
+      "status": "available"
+    },
+    "ic-183": {
+      "status": "available"
+    },
+    "ic-184": {
+      "status": "available"
+    },
+    "ic-185": {
+      "status": "available"
+    },
+    "ic-186": {
+      "status": "available"
+    },
+    "ic-187": {
+      "status": "available"
+    },
+    "ic-188": {
+      "status": "available"
+    },
+    "ic-189": {
+      "status": "available"
+    },
+    "ic-190": {
+      "status": "available"
+    },
+    "ic-191": {
+      "status": "available"
+    },
+    "ic-192": {
+      "status": "available"
+    },
+    "ic-193": {
+      "status": "available"
+    },
+    "ic-194": {
+      "status": "available"
+    },
+    "ic-195": {
+      "status": "available"
+    },
+    "ic-196": {
+      "status": "available"
+    },
+    "ic-197": {
+      "status": "available"
+    },
+    "ic-198": {
+      "status": "available"
+    },
+    "ic-199": {
+      "status": "available"
+    },
+    "ic-200": {
+      "status": "available"
+    }
+  },
+  "drafts": {
+    "atelier-yassine": {
+      "slug": "atelier-yassine",
+      "theme": "men",
+      "name": "Atelier Yassine",
+      "description": "Barber shop · Grooming · Rabat",
+      "city": "Rabat",
+      "heroImage": "assets/clients/atelier-yassine/hero.webp",
+      "logoImage": "assets/clients/atelier-yassine/logo.webp",
+      "logoAlt": "Monogramme Atelier Yassine",
+      "contactCard": {
+        "label": "Ajouter aux contacts",
+        "organization": "Atelier Yassine"
+      },
+      "channels": {
+        "whatsapp": {
+          "label": "WhatsApp",
+          "value": "+212 6 87 65 43 21",
+          "href": "https://wa.me/212687654321",
+          "external": true
+        },
+        "phone": {
+          "label": "Appeler",
+          "value": "+212 6 87 65 43 21",
+          "href": "tel:+212687654321"
+        },
+        "reviews": {
+          "label": "Avis",
+          "value": "Voir les avis · 4,8 ★",
+          "href": "https://www.google.com/search?q=Atelier+Yassine+Rabat+avis",
+          "external": true
+        },
+        "email": {
+          "label": "E-mail",
+          "value": "contact@atelieryassine.ma",
+          "href": "mailto:contact@atelieryassine.ma"
+        },
+        "instagram": {
+          "label": "Instagram",
+          "value": "@atelieryassine",
+          "href": "https://instagram.com/atelieryassine",
+          "external": true
+        },
+        "facebook": {
+          "label": "Facebook",
+          "value": "Atelier Yassine",
+          "href": "https://facebook.com/atelieryassine",
+          "external": true
+        },
+        "address": {
+          "label": "Adresse",
+          "value": "7 Avenue Fal Ould Oumeir, Agdal, Rabat",
+          "href": "https://maps.google.com/?q=7+Avenue+Fal+Ould+Oumeir+Agdal+Rabat",
+          "external": true
+        }
+      },
+      "quickActions": [
+        "whatsapp",
+        "phone",
+        "reviews"
+      ],
+      "detailItems": [
+        "phone",
+        "email",
+        "instagram",
+        "facebook",
+        "address",
+        "reviews"
+      ]
+    },
+    "ic-001": {
+      "slug": "ic-001",
+      "theme": "women",
+      "name": "Maison Lina",
+      "description": "Mode féminine · Caftans · Accessoires",
+      "city": "Rabat",
+      "heroImage": "assets/clients/maison-lina/hero.webp",
+      "logoImage": "assets/clients/maison-lina/logo.webp",
+      "logoAlt": "Logo du commerce",
+      "contactCard": {
+        "label": "Ajouter aux contacts",
+        "organization": "Maison Lina"
+      },
+      "channels": {
+        "whatsapp": {
+          "label": "WhatsApp",
+          "value": "+212 6 12 34 56 78",
+          "href": "https://wa.me/212612345678",
+          "external": true
+        },
+        "phone": {
+          "label": "Téléphone",
+          "value": "+212 6 12 34 56 78",
+          "href": "tel:+212612345678"
+        },
+        "email": {
+          "label": "E-mail",
+          "value": "bonjour@maisonlina.ma",
+          "href": "mailto:bonjour@maisonlina.ma"
+        },
+        "instagram": {
+          "label": "Instagram",
+          "value": "@maisonlina",
+          "href": "https://instagram.com/maisonlina",
+          "external": true
+        },
+        "address": {
+          "label": "Adresse",
+          "value": "18 Rue Oued Sebou, Agdal, Rabat",
+          "href": "https://maps.google.com/?q=18+Rue+Oued+Sebou+Agdal+Rabat",
+          "external": true
+        },
+        "reviews": {
+          "label": "Avis Google",
+          "value": "Voir les avis · 4,9 ★",
+          "href": "https://www.google.com/search?q=Maison+Lina+Rabat+avis",
+          "external": true
+        }
+      },
+      "quickActions": [
+        "whatsapp",
+        "phone",
+        "reviews"
+      ],
+      "detailItems": [
+        "phone",
+        "email",
+        "address",
+        "reviews"
+      ]
+    },
+    "maison-lina": {
+      "slug": "maison-lina",
+      "theme": "women",
+      "name": "Maison Lina",
+      "description": "Mode féminine · Caftans · Accessoires",
+      "city": "Rabat",
+      "heroImage": "assets/clients/maison-lina/hero.webp",
+      "logoImage": "assets/clients/maison-lina/logo.webp",
+      "logoAlt": "Monogramme Maison Lina",
+      "contactCard": {
+        "label": "Ajouter aux contacts",
+        "organization": "Maison Lina"
+      },
+      "channels": {
+        "whatsapp": {
+          "label": "WhatsApp",
+          "value": "+212 6 12 34 56 78",
+          "href": "https://wa.me/212612345678",
+          "external": true
+        },
+        "phone": {
+          "label": "Appeler",
+          "value": "+212 6 12 34 56 78",
+          "href": "tel:+212612345678"
+        },
+        "reviews": {
+          "label": "Avis",
+          "value": "Voir les avis · 4,9 ★",
+          "href": "https://www.google.com/search?q=Maison+Lina+Rabat+avis",
+          "external": true
+        },
+        "email": {
+          "label": "E-mail",
+          "value": "bonjour@maisonlina.ma",
+          "href": "mailto:bonjour@maisonlina.ma"
+        },
+        "instagram": {
+          "label": "Instagram",
+          "value": "@maisonlina",
+          "href": "https://instagram.com/maisonlina",
+          "external": true
+        },
+        "facebook": {
+          "label": "Facebook",
+          "value": "Maison Lina",
+          "href": "https://facebook.com/maisonlina",
+          "external": true
+        },
+        "address": {
+          "label": "Adresse",
+          "value": "18 Rue Oued Sebou, Agdal, Rabat",
+          "href": "https://maps.google.com/?q=18+Rue+Oued+Sebou+Agdal+Rabat",
+          "external": true
+        }
+      },
+      "quickActions": [
+        "whatsapp",
+        "phone",
+        "reviews"
+      ],
+      "detailItems": [
+        "phone",
+        "email",
+        "instagram",
+        "facebook",
+        "address",
+        "reviews"
+      ]
+    }
+  }
+}
