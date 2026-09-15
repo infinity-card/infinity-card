@@ -2,7 +2,9 @@ const SESSION_COOKIE = "infinity_card_session";
 const STATE_COOKIE = "infinity_card_oauth_state";
 const RETURN_COOKIE = "infinity_card_oauth_return";
 const SESSION_MAX_AGE = 60 * 60 * 8;
-const MAX_REQUEST_BYTES = 12 * 1024 * 1024;
+// Two uploaded images can legitimately be several megabytes together. Keep a
+// generous request cap while retaining the per-file 8 MiB guard below.
+const MAX_REQUEST_BYTES = 24 * 1024 * 1024;
 const MAX_FILE_BYTES = 8 * 1024 * 1024;
 
 const encoder = new TextEncoder();
