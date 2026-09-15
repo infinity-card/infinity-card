@@ -2,7 +2,7 @@ import type { ClientCard } from "../../types";
 
 export const client: ClientCard = {
   "slug": "ic-001",
-  "theme": "men",
+  "theme": "women",
   "name": "INFINITY CARD",
   "description": "Infinity Card , Un simple geste, des connexions infinies.",
   "city": "Meknès",
@@ -11,10 +11,10 @@ export const client: ClientCard = {
   "logoAlt": "Logo du commerce",
   "colors": {
     "background": "#ffffff",
-    "primary": "#0011ff",
-    "accent": "#153748",
-    "softAccent": "#c9946e",
-    "ink": "#0d2029"
+    "primary": "#813f51",
+    "accent": "#b96f73",
+    "softAccent": "#dcb8b6",
+    "ink": "#18211f"
   },
   "contactCard": {
     "label": "Ajouter aux contacts",
