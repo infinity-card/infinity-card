@@ -83,6 +83,12 @@ export function buildGithubPublishPayload(draft: BuilderDraft): GithubPublishPay
     encoding: "utf-8",
   };
 
+  files.push({
+    path: `public/clients/${slug}.json`,
+    content: `${JSON.stringify(client, null, 2)}\n`,
+    encoding: "utf-8",
+  });
+
   return {
     client,
     files,
