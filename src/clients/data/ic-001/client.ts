@@ -2,19 +2,19 @@ import type { ClientCard } from "../../types";
 
 export const client: ClientCard = {
   "slug": "ic-001",
-  "theme": "men",
+  "theme": "women",
   "name": "INFINITY CARD",
-  "description": "Business card NFC",
-  "city": "Meknès",
+  "description": "Digital",
+  "city": "Meknes",
   "heroImage": "assets/clients/ic-001/hero.webp",
   "logoImage": "assets/clients/ic-001/logo.webp",
   "logoAlt": "Logo du commerce",
   "colors": {
     "background": "#ffffff",
-    "primary": "#550080",
-    "accent": "#153748",
-    "softAccent": "#c9946e",
-    "ink": "#0d2029"
+    "primary": "#813f51",
+    "accent": "#b96f73",
+    "softAccent": "#dcb8b6",
+    "ink": "#18211f"
   },
   "contactCard": {
     "label": "Ajouter aux contacts",
@@ -23,27 +23,16 @@ export const client: ClientCard = {
   "channels": {
     "whatsapp": {
       "label": "WhatsApp",
-      "value": "+212691796692",
-      "href": "https://wa.me/212691796692",
-      "external": true
-    },
-    "phone": {
-      "label": "Téléphone",
-      "value": "+212691796692",
-      "href": "tel:+212691796692"
-    },
-    "instagram": {
-      "label": "Instagram",
-      "value": "@infinitycard",
-      "href": "https://www.instagram.com/infitycard?stkn=Y2hwM29tNzNqNjVk",
+      "value": "012345678",
+      "href": "https://wa.me/012345678",
       "external": true
     }
   },
-  "quickActions": [],
+  "quickActions": [
+    "whatsapp"
+  ],
   "detailItems": [
-    "whatsapp",
-    "phone",
-    "instagram"
+    "whatsapp"
   ]
 };
 
