@@ -4,16 +4,16 @@ export const client: ClientCard = {
   "slug": "ic-001",
   "theme": "women",
   "name": "INFINITY CARD",
-  "description": "Digital",
-  "city": "Meknes",
+  "description": "Business Card NFC",
+  "city": "Meknès",
   "heroImage": "assets/clients/ic-001/hero.webp",
   "logoImage": "assets/clients/ic-001/logo.webp",
   "logoAlt": "Logo du commerce",
   "colors": {
     "background": "#ffffff",
-    "primary": "#813f51",
-    "accent": "#b96f73",
-    "softAccent": "#dcb8b6",
+    "primary": "#3a0e66",
+    "accent": "#780099",
+    "softAccent": "#000000",
     "ink": "#18211f"
   },
   "contactCard": {
@@ -23,16 +23,50 @@ export const client: ClientCard = {
   "channels": {
     "whatsapp": {
       "label": "WhatsApp",
-      "value": "012345678",
-      "href": "https://wa.me/012345678",
+      "value": "+212691796692",
+      "href": "https://wa.me/212691796692",
+      "external": true
+    },
+    "phone": {
+      "label": "Téléphone",
+      "value": "0636692558",
+      "href": "tel:0636692558"
+    },
+    "email": {
+      "label": "E-mail",
+      "value": "abdoukassou1200@gmail.com",
+      "href": "mailto:abdoukassou1200@gmail.com"
+    },
+    "instagram": {
+      "label": "Instagram",
+      "value": "INFINITY CARD 🇲🇦",
+      "href": "https://www.instagram.com/infitycard?stkn=Y2hwM29tNzNqNjVk",
+      "external": true
+    },
+    "linkedin": {
+      "label": "LinkedIn",
+      "value": "Oukassou Abdejellil",
+      "href": "https://www.linkedin.com/in/abdejellil-oukassou-37105b349",
+      "external": true
+    },
+    "reviews": {
+      "label": "Avis Google",
+      "value": "Voir les avis 5,0 ☆",
+      "href": "https://www.google.com/maps/place/INNOPRINT+%D9%85%D9%83%D8%AA%D8%A8%D8%A9%E2%80%AD/@33.8864855,-5.5997735,17z/data=!4m14!1m7!3m6!1s0xda05b1cb52793a7:0xec7a665050fba31a!2zSU5OT1BSSU5UINmF2YPYqtio2Kk!8m2!3d33.8864811!4d-5.5971932!16s%2Fg%2F11yqqz21hw!3m5!1s0xda05b1cb52793a7:0xec7a665050fba31a!8m2!3d33.8864811!4d-5.5971932!16s%2Fg%2F11yqqz21hw?entry=ttu&g_ep=EgoyMDI2MDkxNC4wIKXMDSoASAFQAw%3D%3D",
       "external": true
     }
   },
   "quickActions": [
-    "whatsapp"
+    "whatsapp",
+    "phone"
   ],
   "detailItems": [
-    "whatsapp"
+    "whatsapp",
+    "phone",
+    "email",
+    "instagram",
+    "linkedin",
+    "reviews"
   ]
 };
 
