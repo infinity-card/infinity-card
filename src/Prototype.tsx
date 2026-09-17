@@ -1,4 +1,4 @@
-import { useMemo, useState, type ComponentType, type CSSProperties } from "react";
+import { useEffect, useMemo, useState, type ComponentType, type CSSProperties } from "react";
 import {
   ChatBubbleIcon,
   CheckIcon,
@@ -15,7 +15,7 @@ import {
   VideoIcon,
 } from "@radix-ui/react-icons";
 import { MobileScroll } from "./mobile";
-import { getActiveClient, type ChannelKind } from "./clients";
+import { getActiveClient, loadPublishedClient, type ChannelKind } from "./clients";
 import { downloadVCard, imageElementToJpegData } from "./clients/vcard";
 import Builder from "./builder/Builder";
 import { getCardStyleVariables } from "./builder/schema";
@@ -40,12 +40,31 @@ function ExternalAttributes({ external }: { external?: boolean }) {
 }
 
 export default function Prototype() {
-  const client = useMemo(getActiveClient, []);
   const isBuilder = new URLSearchParams(window.location.search).get("builder") === "1";
+  const bundledClient = useMemo(getActiveClient, []);
+  const assetBase = import.meta.env.BASE_URL;
+  const assetRevision = useMemo(() => `${Date.now()}-${Math.random().toString(36).slice(2)}`, []);
+  const [client, setClient] = useState(bundledClient);
+
+  const clientAssetUrl = (path: string) => {
+    const url = new URL(`${assetBase}${path}`, window.location.href);
+    url.searchParams.set("v", assetRevision);
+    return url.href;
+  };
+
+  useEffect(() => {
+    if (isBuilder || bundledClient.isPlaceholder) return;
+    let active = true;
+    loadPublishedClient(bundledClient.slug, assetBase).then((freshClient) => {
+      if (active && freshClient) setClient(freshClient);
+    });
+    return () => {
+      active = false;
+    };
+  }, [assetBase, bundledClient.isPlaceholder, bundledClient.slug, isBuilder]);
 
   if (isBuilder) return <Builder />;
 
-  const assetBase = import.meta.env.BASE_URL;
   const paperTextureUrl = new URL(`${assetBase}assets/infinity-card/paper-texture.webp`, window.location.href).href;
   const [contactSaved, setContactSaved] = useState(false);
   const actions = client.quickActions.flatMap((kind) => {
@@ -73,11 +92,11 @@ export default function Prototype() {
         style={getCardStyleVariables(client.theme, client.colors, paperTextureUrl) as CSSProperties}
       >
         <section className="hero" aria-label={`Photo de ${client.name}`}>
-          <img src={`${assetBase}${client.heroImage}`} alt="" draggable="false" />
+          <img src={clientAssetUrl(client.heroImage)} alt="" draggable="false" />
         </section>
 
         <section className="identity" aria-labelledby="business-name">
-          <img className="business-logo" src={`${assetBase}${client.logoImage}`} alt={client.logoAlt} draggable="false" />
+          <img className="business-logo" src={clientAssetUrl(client.logoImage)} alt={client.logoAlt} draggable="false" />
           <div className="identity-copy">
             <p className="city-label">{client.city}</p>
             <h1 id="business-name">{client.name}</h1>
@@ -152,7 +171,7 @@ export default function Prototype() {
 
         <img
           className="corner-brand-mark"
-          src={`${assetBase}${client.logoImage}`}
+          src={clientAssetUrl(client.logoImage)}
           alt=""
           aria-hidden="true"
           draggable="false"
