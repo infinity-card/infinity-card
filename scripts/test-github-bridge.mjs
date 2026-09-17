@@ -39,9 +39,14 @@ const clientFile = {
   content: serializeClientModule(clientData),
   encoding: "utf-8",
 };
+const clientJsonFile = {
+  path: "public/clients/ic-001.json",
+  content: `${JSON.stringify(clientData, null, 2)}\n`,
+  encoding: "utf-8",
+};
 const client = validateClientPayload({
   client: clientData,
-  files: [clientFile, {
+  files: [clientFile, clientJsonFile, {
     path: "public/assets/clients/ic-001/hero.webp",
     content: "AAAA",
     encoding: "base64",
@@ -54,24 +59,33 @@ const client = validateClientPayload({
 assert.equal(client.slug, "ic-001");
 assert.deepEqual(client.files.map((file) => file.path), [
   "src/clients/data/ic-001/client.ts",
+  "public/clients/ic-001.json",
   "public/assets/clients/ic-001/hero.webp",
   "public/assets/clients/ic-001/logo.webp",
 ]);
+const legacyClient = validateClientPayload({ client: clientData, files: [clientFile] });
+assert.deepEqual(legacyClient.files.map((file) => file.path), [
+  "src/clients/data/ic-001/client.ts",
+  "public/clients/ic-001.json",
+]);
 assert.throws(() => validateClientPayload({
   client: clientData,
-  files: [{ ...clientFile, content: "export const client = {};" }],
+  files: [{ ...clientFile, content: "export const client = {};" }, clientJsonFile],
 }), /generated client data/);
 assert.throws(() => validateClientPayload({
   client: clientData,
-  files: [{ ...clientFile, path: "../../.env" }],
+  files: [{ ...clientFile, path: "../../.env" }, clientJsonFile],
 }), /path is not allowed/);
 assert.throws(() => validateClientPayload({
   client: clientData,
-  files: [{ path: "public/assets/clients/ic-001/logo.webp", content: "AAAA", encoding: "base64" }],
+  files: [{ path: "public/assets/clients/ic-001/logo.webp", content: "AAAA", encoding: "base64" }, clientJsonFile],
 }), /data file is required/);
 assert.throws(() => validateClientPayload({
   client: { ...clientData, channels: { whatsapp: { ...clientData.channels.whatsapp, href: "javascript:alert(1)" } } },
-  files: [{ ...clientFile, content: serializeClientModule({ ...clientData, channels: { whatsapp: { ...clientData.channels.whatsapp, href: "javascript:alert(1)" } } }) }],
+  files: [{ ...clientFile, content: serializeClientModule({ ...clientData, channels: { whatsapp: { ...clientData.channels.whatsapp, href: "javascript:alert(1)" } } }) }, {
+    ...clientJsonFile,
+    content: `${JSON.stringify({ ...clientData, channels: { whatsapp: { ...clientData.channels.whatsapp, href: "javascript:alert(1)" } } }, null, 2)}\n`,
+  }],
 }), /channel is invalid/);
 
 const backup = validateBackupPayload({
