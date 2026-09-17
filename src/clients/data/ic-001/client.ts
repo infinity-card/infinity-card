@@ -4,14 +4,14 @@ export const client: ClientCard = {
   "slug": "ic-001",
   "theme": "men",
   "name": "INFINITY CARD",
-  "description": "DIGITAL CARD NFC",
-  "city": "MEKNES",
+  "description": "Business card NFC",
+  "city": "Meknès",
   "heroImage": "assets/clients/ic-001/hero.webp",
   "logoImage": "assets/clients/ic-001/logo.webp",
   "logoAlt": "Logo du commerce",
   "colors": {
     "background": "#ffffff",
-    "primary": "#0015b3",
+    "primary": "#550080",
     "accent": "#153748",
     "softAccent": "#c9946e",
     "ink": "#0d2029"
@@ -32,40 +32,18 @@ export const client: ClientCard = {
       "value": "+212691796692",
       "href": "tel:+212691796692"
     },
-    "email": {
-      "label": "E-mail",
-      "value": "abdoukassou1200@gmail.com",
-      "href": "mailto:abdoukassou1200@gmail.com"
-    },
     "instagram": {
       "label": "Instagram",
-      "value": "infinitycard",
+      "value": "@infinitycard",
       "href": "https://www.instagram.com/infitycard?stkn=Y2hwM29tNzNqNjVk",
-      "external": true
-    },
-    "linkedin": {
-      "label": "LinkedIn",
-      "value": "OUKASSOU ABDEJELLIL",
-      "href": "https://www.linkedin.com/in/abdejellil-oukassou-37105b349/",
-      "external": true
-    },
-    "facebook": {
-      "label": "Facebook",
-      "value": "INFINTYCARD",
-      "href": "https://facebook.com/INFINTYCARD",
       "external": true
     }
   },
-  "quickActions": [
-    "whatsapp"
-  ],
+  "quickActions": [],
   "detailItems": [
     "whatsapp",
     "phone",
-    "email",
-    "instagram",
-    "linkedin",
-    "facebook"
+    "instagram"
   ]
 };
 
