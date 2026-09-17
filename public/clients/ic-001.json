@@ -1,0 +1,19 @@
+{
+  "slug": "ic-001",
+  "theme": "men",
+  "name": "INFINITY CARD",
+  "description": "Business card NFC",
+  "city": "Meknès",
+  "heroImage": "assets/clients/ic-001/hero.webp",
+  "logoImage": "assets/clients/ic-001/logo.webp",
+  "logoAlt": "Logo du commerce",
+  "colors": { "background": "#ffffff", "primary": "#550080", "accent": "#153748", "softAccent": "#c9946e", "ink": "#0d2029" },
+  "contactCard": { "label": "Ajouter aux contacts", "organization": "INFINITY CARD" },
+  "channels": {
+    "whatsapp": { "label": "WhatsApp", "value": "+212691796692", "href": "https://wa.me/212691796692", "external": true },
+    "phone": { "label": "Téléphone", "value": "+212691796692", "href": "tel:+212691796692" },
+    "instagram": { "label": "Instagram", "value": "@infinitycard", "href": "https://www.instagram.com/infitycard?stkn=Y2hwM29tNzNqNjVk", "external": true }
+  },
+  "quickActions": [],
+  "detailItems": ["whatsapp", "phone", "instagram"]
+}
