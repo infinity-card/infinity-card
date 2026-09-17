@@ -72,6 +72,8 @@ the user to confirm saving the contact.
 
 The Builder is designed for phone-first intake: choose a base theme, fill the client profile, upload the hero/logo, toggle channels, preview, save a local draft, or publish through `VITE_GITHUB_BRIDGE_URL` when the secure GitHub bridge is configured. When a channel value is filled but its action URL is left empty, the Builder generates the usual WhatsApp, phone, e-mail, Instagram, TikTok, social, maps, reviews, or website link automatically. The browser never receives a GitHub token.
 
+Published clients also have a matching `public/clients/<slug>.json` runtime file. Public card pages load this file with a cache-busting request, while `public/sw.js` uses network-first navigation and client-asset rules. This keeps the permanent `?client=ic-###` QR/NFC URL current on phones after an edit; the bundled TypeScript module remains a safe offline/fallback copy.
+
 `npm run build:pages` creates a relative-path static build in `dist/pages`, including the preview assets, ready for a GitHub Pages project subdirectory. It does not publish anything.
 
 See [`docs/repository-setup.md`](docs/repository-setup.md) for the one-time GitHub Pages setup and [`docs/github-bridge.md`](docs/github-bridge.md) for the secure Builder publish contract.
