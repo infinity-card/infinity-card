@@ -278,6 +278,10 @@ function serializeClientModule(client) {
   return `import type { ClientCard } from "../../types";\n\nexport const client: ClientCard = ${data};\n\nexport default client;\n`;
 }
 
+function serializeClientJson(client) {
+  return `${JSON.stringify(client, null, 2)}\n`;
+}
+
 function validateWriteRequest(request, env) {
   const allowedOrigin = config(env, "PUBLIC_APP_ORIGIN");
   const requestOrigin = request.headers.get("Origin") || "";
@@ -305,12 +309,13 @@ function validateClientPayload(payload) {
   const slug = normalizeSlug(client?.slug);
   if (!client || !validSlug(slug)) throw new Error("Invalid client slug.");
   validateClientData(client, slug);
-  if (!Array.isArray(payload.files) || payload.files.length < 1 || payload.files.length > 3) {
-    throw new Error("A client publish must contain one to three files.");
+  if (!Array.isArray(payload.files) || payload.files.length < 1 || payload.files.length > 4) {
+    throw new Error("A client publish must contain one to four files.");
   }
 
   const allowed = new Set([
     `src/clients/data/${slug}/client.ts`,
+    `public/clients/${slug}.json`,
     `public/assets/clients/${slug}/hero.webp`,
     `public/assets/clients/${slug}/logo.webp`,
   ]);
@@ -325,10 +330,19 @@ function validateClientPayload(payload) {
     if (file.path === `src/clients/data/${slug}/client.ts` && (file.encoding !== "utf-8" || file.content !== serializeClientModule(client))) {
       throw new Error("Client data file must match the generated client data.");
     }
+    if (file.path === `public/clients/${slug}.json` && (file.encoding !== "utf-8" || file.content !== serializeClientJson(client))) {
+      throw new Error("Client JSON file must match the generated client data.");
+    }
     seen.add(file.path);
   }
   if (!seen.has(`src/clients/data/${slug}/client.ts`)) throw new Error("Client data file is required.");
-  return { slug, files: payload.files, commitMessage: String(payload.commitMessage || `Add Infinity Card client: ${slug}`).slice(0, 120) };
+  const files = [...payload.files];
+  // Keep old Builder bundles working while guaranteeing every new commit has
+  // the cache-safe JSON copy used by public card pages.
+  if (!seen.has(`public/clients/${slug}.json`)) {
+    files.push({ path: `public/clients/${slug}.json`, content: serializeClientJson(client), encoding: "utf-8" });
+  }
+  return { slug, files, commitMessage: String(payload.commitMessage || `Add Infinity Card client: ${slug}`).slice(0, 120) };
 }
 
 function validateBackupPayload(payload) {
