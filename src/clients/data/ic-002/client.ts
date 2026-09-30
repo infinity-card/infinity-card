@@ -4,7 +4,7 @@ export const client: ClientCard = {
   "slug": "ic-002",
   "theme": "women",
   "name": "Test",
-  "description": "Tes",
+  "description": "Test",
   "city": "Test",
   "heroImage": "assets/clients/ic-002/hero.webp",
   "logoImage": "assets/clients/ic-002/logo.webp",
@@ -21,15 +21,24 @@ export const client: ClientCard = {
     "organization": "Test"
   },
   "channels": {
+    "phone": {
+      "label": "Téléphone",
+      "value": "1234674884848",
+      "href": "tel:1234674884848"
+    },
     "whatsapp": {
       "label": "WhatsApp",
-      "value": "0123456789",
-      "href": "https://wa.me/0123456789",
+      "value": "12926399483u",
+      "href": "https://wa.me/12926399483",
       "external": true
     }
   },
-  "quickActions": [],
+  "quickActions": [
+    "phone",
+    "whatsapp"
+  ],
   "detailItems": [
+    "phone",
     "whatsapp"
   ]
 };
