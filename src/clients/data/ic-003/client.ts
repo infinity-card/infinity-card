@@ -41,12 +41,12 @@ export const client: ClientCard = {
     "address": {
       "label": "Adresse",
       "value": "Toulal, Meknès 50000",
-      "href": "https://www.google.com/maps/search/?api=1&query=Toulal%2C%20Mekn%C3%A8s%2050000",
+      "href": "https://www.google.com/maps/place/INNOPRINT+%D9%85%D9%83%D8%AA%D8%A8%D8%A9%E2%80%AD/@33.8864811,-5.5997681,760m/data=!3m1!1e3!4m18!1m9!3m8!1s0xda05b1cb52793a7:0xec7a665050fba31a!2zSU5OT1BSSU5UINmF2YPYqtio2Kk!8m2!3d33.8864811!4d-5.5971932!9m1!1b1!16s%2Fg%2F11yqqz21hw!3m7!1s0xda05b1cb52793a7:0xec7a665050fba31a!8m2!3d33.8864811!4d-5.5971932!9m1!1b1!16s%2Fg%2F11yqqz21hw?entry=ttu&g_ep=EgoyMDI2MTExMC4wIKXMDSoASAFQAw%3D%3D",
       "external": true
     },
     "reviews": {
       "label": "Avis Google",
-      "value": "",
+      "value": "Voir les avis",
       "href": "https://www.google.com/maps/place/INNOPRINT+%D9%85%D9%83%D8%AA%D8%A8%D8%A9%E2%80%AD/@33.8864811,-5.5997681,760m/data=!3m1!1e3!4m18!1m9!3m8!1s0xda05b1cb52793a7:0xec7a665050fba31a!2zSU5OT1BSSU5UINmF2YPYqtio2Kk!8m2!3d33.8864811!4d-5.5971932!9m1!1b1!16s%2Fg%2F11yqqz21hw!3m7!1s0xda05b1cb52793a7:0xec7a665050fba31a!8m2!3d33.8864811!4d-5.5971932!9m1!1b1!16s%2Fg%2F11yqqz21hw?entry=ttu&g_ep=EgoyMDI2MTExMC4wIKXMDSoASAFQAw%3D%3D",
       "external": true
     },
