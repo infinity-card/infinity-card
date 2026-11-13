@@ -55,6 +55,24 @@ export const client: ClientCard = {
       "value": "LINKEDIN",
       "href": "https://linkedin.com/in/LINKEDIN",
       "external": true
+    },
+    "facebook": {
+      "label": "Facebook",
+      "value": "FACEBOOK",
+      "href": "https://facebook.com/FACEBOOK",
+      "external": true
+    },
+    "tiktok": {
+      "label": "TikTok",
+      "value": "TIKTOK",
+      "href": "https://tiktok.com/@TIKTOK",
+      "external": true
+    },
+    "website": {
+      "label": "Site web",
+      "value": "www.infiniticard.ma",
+      "href": "https://www.infiniticard.ma",
+      "external": true
     }
   },
   "quickActions": [
@@ -67,7 +85,10 @@ export const client: ClientCard = {
     "instagram",
     "address",
     "reviews",
-    "linkedin"
+    "linkedin",
+    "facebook",
+    "tiktok",
+    "website"
   ]
 };
 
