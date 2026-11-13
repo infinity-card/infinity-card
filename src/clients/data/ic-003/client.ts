@@ -70,8 +70,8 @@ export const client: ClientCard = {
     },
     "website": {
       "label": "Site web",
-      "value": "www.infiniticard.ma",
-      "href": "https://www.infiniticard.ma",
+      "value": "www.hellocard.it",
+      "href": "https://www.hellocard.it",
       "external": true
     }
   },
