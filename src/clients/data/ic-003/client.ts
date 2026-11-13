@@ -2,7 +2,7 @@ import type { ClientCard } from "../../types";
 
 export const client: ClientCard = {
   "slug": "ic-003",
-  "theme": "women",
+  "theme": "men",
   "name": "INFINITY CARD",
   "description": "Custom Quick Plastic NFC Business Cards with matte finish for a stand-out look and feel!",
   "city": "Meknes",
@@ -11,10 +11,10 @@ export const client: ClientCard = {
   "logoAlt": "Logo du commerce",
   "colors": {
     "background": "#ffffff",
-    "primary": "#813f51",
-    "accent": "#b96f73",
-    "softAccent": "#dcb8b6",
-    "ink": "#18211f"
+    "primary": "#a34f2e",
+    "accent": "#153748",
+    "softAccent": "#c9946e",
+    "ink": "#0d2029"
   },
   "contactCard": {
     "label": "Ajouter aux contacts",
